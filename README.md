@@ -1,1 +1,0 @@
-# mnw-rails4
