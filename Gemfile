@@ -23,6 +23,13 @@ gem 'omniauth-google-oauth2'
 gem 'rolify'
 gem 'cancancan', '~> 1.10'
 
+# Phrase and weather management
+gem 'open-weather'
+gem 'acts-as-taggable-on'
+gem "mini_magick"
+gem 'carrierwave'
+gem 'carrierwave-aws'
+
 group :development do
   gem 'rspec-rails'
   gem 'guard-rspec'

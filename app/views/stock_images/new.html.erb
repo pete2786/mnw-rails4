@@ -1,0 +1,5 @@
+<%= form_for @stock_image, :html => {:multipart => true} do |f| %>
+    My Avatar
+    <%= f.file_field :image %>
+    <%= f.submit %>
+<% end %>
