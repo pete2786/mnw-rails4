@@ -2,8 +2,12 @@ class ImageUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
   include CarrierWave::MimeTypes
 
-  process :set_content_type
   storage :aws
+  process resize_to_fit: [800, 800]
+
+  version :thumb do
+    process resize_to_fill: [50,50]
+  end
 
   def store_dir
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"

@@ -1,0 +1,44 @@
+<%- model_class = Phrase -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:id) %></th>
+      <th><%= model_class.human_attribute_name(:season) %></th>
+      <th><%= model_class.human_attribute_name(:location) %></th>
+      <th><%= model_class.human_attribute_name(:phrase) %></th>
+      <th><%= model_class.human_attribute_name(:stock_image_id) %></th>
+      <th><%= model_class.human_attribute_name(:custom_image) %></th>
+      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @phrases.each do |phrase| %>
+      <tr>
+        <td><%= link_to phrase.id, phrase_path(phrase) %></td>
+        <td><%= phrase.season %></td>
+        <td><%= phrase.location %></td>
+        <td><%= phrase.phrase %></td>
+        <td><%= phrase.stock_image_id %></td>
+        <td><%= phrase.custom_image %></td>
+        <td><%=l phrase.created_at %></td>
+        <td>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_phrase_path(phrase), :class => 'btn btn-default btn-xs' %>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      phrase_path(phrase),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-xs btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_phrase_path,
+            :class => 'btn btn-primary' %>

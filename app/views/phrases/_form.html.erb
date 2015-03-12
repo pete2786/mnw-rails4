@@ -1,0 +1,63 @@
+<%= simple_form_for @phrase do |f| %>
+  <p>Choose a condition, temperature or both. (Ex. Super Hot / Super Hot AND Rainy / Rainy)</p>
+  <%= f.input :condition, as: :select, collection: Phrase.conditions, include_blank: true%>
+  <%= f.input :temperature, as: :select, collection: Phrase.temperatures, include_blank: true%>
+  <%= f.input :season, as: :select, collection: Phrase.seasons, include_blank: true, :class => 'form-control' %>
+  <%= f.input :humid, as: :select %>
+  <%= f.input :windy, as: :select %>
+  <hr />
+  <p>Choose a phrase and image to describe these conditions, preferrably humorously.</p>
+  <%= f.input :phrase, :class => 'form-control' %>
+
+  <% unless @phrase.errors[:image].blank? %>
+  <div class="alert alert-danger" role="alert">
+    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+    <span class="sr-only">Error:</span>
+    <%=@phrase.errors[:image].join(', ')%>
+  </div>
+  <% end %>
+
+  <div class="btn-group" role="group" aria-label="...">
+    <button type="button" id="stock" class="btn btn-primary">Use a Stock Image</button>
+    <button type="button" id="custom" class="btn btn-primary">Upload a Custom Image</button>
+  </div>
+
+  <div id="stock_image" style="<%=hide_if(@phrase.has_custom_image?)%>">
+    <%= f.input :stock_image do %>
+      <%= f.select :stock_image_id, 
+        StockImage.all.map { |f| [f.id, f.id, { 'data-img-src' => f.image.thumb} ] }, 
+        { prompt: "Please select"}, 
+        { multiple: false, class: "image-picker show-html" } %>
+    <% end %>
+  </div>
+
+  <div id="custom_image" style="<%=hide_if(@phrase.has_stock_image?)%>">
+    <%= f.input :custom_image, :class => 'form-control' %>
+    <%= f.label :remote_custom_image_url, "or image URL" %>  
+    <%= f.text_field :remote_custom_image_url %>  
+    <%= f.hidden_field :custom_image_cache %>
+  </div>  
+  <hr />
+
+  <%= f.submit nil, :class => 'btn btn-primary' %>
+  <%= link_to t('.cancel', :default => t("helpers.links.cancel")), phrases_path, :class => 'btn btn-default' %>
+<% end %>
+
+<script>
+  $(".image-picker").imagepicker();
+</script>
+
+<script>
+  $('#stock').on('click', function () {
+    $("#custom_image").hide();
+    $("#phrase_stock_image_id").val('');
+    $("ul.image_picker_selector>li>div.selected").removeClass("selected");
+    $("#stock_image").show();
+  });
+
+  $('#custom').on('click', function () {
+    $("#stock_image").hide();
+    $("#phrase_custom_image").val('');
+    $("#custom_image").show();
+  });
+</script>

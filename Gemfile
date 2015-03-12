@@ -17,6 +17,11 @@ gem 'jquery-rails'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
 
+#looks
+gem 'twitter-bootstrap-rails'
+gem 'simple_form'
+gem 'image-picker-rails'
+
 # authorization/authentication
 gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
@@ -25,7 +30,6 @@ gem 'cancancan', '~> 1.10'
 
 # Phrase and weather management
 gem 'open-weather'
-gem 'acts-as-taggable-on'
 gem "mini_magick"
 gem 'carrierwave'
 gem 'carrierwave-aws'

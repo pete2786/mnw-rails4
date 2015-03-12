@@ -4,6 +4,10 @@ class CreatePhrases < ActiveRecord::Migration
       t.string :season
       t.string :location
       t.text :phrase
+      t.text :condition
+      t.text :temperature
+      t.text :windy
+      t.text :humid
       t.integer :stock_image_id
       t.string :custom_image
 

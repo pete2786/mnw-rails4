@@ -1,14 +1,12 @@
 class StockImagesController < ApplicationController
-  def new
-    @stock_image = StockImage.new
-  end
+  load_and_authorize_resource
 
   def create
-    @stock_image = StockImage.create(stock_image_params)
-  end
-
-  def show
-    @stock_image = StockImage.find(params[:id])
+    if @stock_image.save
+      redirect_to stock_image_path(@stock_image)
+    else
+      render :new
+    end
   end
 
   def stock_image_params
