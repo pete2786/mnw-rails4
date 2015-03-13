@@ -6,7 +6,7 @@ class ConditionClassifier
   delegate :code, :wind_speed, :temperature, :humidity, to: :conditions
 
   WINDY_MPH = 15
-  HUMIDITY_PERCENTAGE = 75
+  HUMIDITY_PERCENTAGE = 80
 
   def initialize(conditions)
     self.conditions = conditions
@@ -32,16 +32,13 @@ class ConditionClassifier
     @windy ||= wind_speed > WINDY_MPH ? 'Yes' : 'No'
   end
 
-  def humid
-    @humid ||= humidity > HUMIDITY_PERCENTAGE && condition != 'rain' && temperature > 75 ? 'Yes' : 'No'
-  end
-
   def freezing
     @general_temperature ||= temperature > 32 ? 'above_freezing' : 'below_freezing'
   end
 
   # http://bugs.openweathermap.org/projects/api/wiki/Weather_Condition_Codes
   def process_condition
+    return 'humid' if humidity > HUMIDITY_PERCENTAGE && condition != 'rain' && temperature > 75
     # Extreme weather
     if ['901', '902', '903'].include?(code)
       'disaster'

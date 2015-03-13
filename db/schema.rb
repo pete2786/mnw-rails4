@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150310034510) do
+ActiveRecord::Schema.define(version: 20150313041336) do
 
   create_table "phrase_votes", force: :cascade do |t|
     t.integer  "phrase_id"
@@ -30,12 +30,12 @@ ActiveRecord::Schema.define(version: 20150310034510) do
     t.text     "phrase"
     t.text     "condition"
     t.text     "temperature"
-    t.text     "windy"
-    t.text     "humid"
     t.integer  "stock_image_id"
     t.string   "custom_image"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.integer  "user_id"
+    t.boolean  "immortal",       default: false
   end
 
   create_table "stock_images", force: :cascade do |t|

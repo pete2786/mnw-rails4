@@ -10,7 +10,7 @@ class StockImagesController < ApplicationController
   end
 
   def stock_image_params
-    params.require(:stock_image).permit(:image)
+    params.require(:stock_image).permit(:image, :remote_image_url)
   end
   private :stock_image_params
 end

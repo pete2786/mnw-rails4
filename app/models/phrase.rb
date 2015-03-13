@@ -1,6 +1,6 @@
 class Phrase < ActiveRecord::Base
   SEASONS = %w{any winter spring summer fall}
-  CONDITIONS = %w{any clear cloudy disaster drizzle fog overcast partially_cloudy rain sleet snowy thunder}
+  CONDITIONS = %w{any clear cloudy disaster drizzle fog overcast partially_cloudy rain sleet snowy thunder humid windy}
   ABOVE_TEMP = %w{super_hot hot warm cool cold freezing}
   BELOW_TEMP = %w{very_cold below_zero way_below_zero}
   TEMPERATURES = %w{any above_freezing below_freezing} + ABOVE_TEMP + BELOW_TEMP
@@ -15,6 +15,8 @@ class Phrase < ActiveRecord::Base
   scope :with_condition, ->(c){where(condition: c)}
   scope :any_temperature, ->{where(temperature: 'any')}
   scope :any_condition, ->{where(condition: 'any')}
+
+  before_validation :swap_image, except: :create
 
   validates :phrase, presence: true, length: { maximum: 250 }
   validates :condition, presence: true, inclusion: CONDITIONS
@@ -58,12 +60,20 @@ class Phrase < ActiveRecord::Base
     (new_record? || !stock_image_id.blank?) ? :stock : :custom
   end
 
+  def swap_image
+    if stock_image_id_changed?
+      self.remove_custom_image!
+    elsif custom_image_changed?
+      self.stock_image_id = nil
+    end
+  end
+
   def no_image?
-    stock_image_id.blank? && !custom_image?
+    stock_image_id.blank? && !custom_image? && remote_custom_image_url.blank?
   end
 
   def double_image?
-    !stock_image_id.blank? && custom_image?
+    !stock_image_id.blank? && (custom_image? || !remote_custom_image_url.blank?)
   end
 
   def image_required  

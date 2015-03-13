@@ -3,8 +3,6 @@
   <%= f.input :condition, as: :select, collection: Phrase.conditions, include_blank: true%>
   <%= f.input :temperature, as: :select, collection: Phrase.temperatures, include_blank: true%>
   <%= f.input :season, as: :select, collection: Phrase.seasons, include_blank: true, :class => 'form-control' %>
-  <%= f.input :humid, as: :select %>
-  <%= f.input :windy, as: :select %>
   <hr />
   <p>Choose a phrase and image to describe these conditions, preferrably humorously.</p>
   <%= f.input :phrase, :class => 'form-control' %>
@@ -34,7 +32,8 @@
   <div id="custom_image" style="<%=hide_if(@phrase.has_stock_image?)%>">
     <%= f.input :custom_image, :class => 'form-control' %>
     <%= f.label :remote_custom_image_url, "or image URL" %>  
-    <%= f.text_field :remote_custom_image_url %>  
+    <%= f.text_field :remote_custom_image_url %>
+    <%= f.label :remove_custom_image, "Delete image" %> 
     <%= f.hidden_field :custom_image_cache %>
   </div>  
   <hr />
@@ -58,6 +57,7 @@
   $('#custom').on('click', function () {
     $("#stock_image").hide();
     $("#phrase_custom_image").val('');
+    $("#phrase_remote_custom_image_url").val('');
     $("#custom_image").show();
   });
 </script>
