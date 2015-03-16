@@ -6,22 +6,40 @@ class Condition < SimpleDelegator
       if !location.to_s.index(/^\d{5}$/).nil?
         geocode_by_zip(location)
       else
-        new(Hashie::Mash.new(OpenWeather::Current.city(location)))
+        condition = OpenWeather::Current.city(location)
+        new(Hashie::Mash.new(condition))
       end
     end
 
     def geocode(lat, long)
-      new(Hashie::Mash.new(OpenWeather::Current.geocode(lat, long)))
+      condition = OpenWeather::Current.geocode(lat, long)
+      new(Hashie::Mash.new(condition))
     end
 
     def geocode_by_zip(zip)
       zip = ZIP_CODE.find(location)
       self.geocode(zip["latitude"].to_f, zip["longitude"].to_f)
     end
+
+    def with(params)
+      if !params[:lat].blank? && !params[:long].blank?
+        geocode(params[:lat], params[:long])
+      else
+        location(params[:current_condition][:location] || "Ely,Mn")
+      end
+    end
   end
 
   def initialize(condition)
     super
+  end
+
+  def icon
+    weather.first.icon
+  end
+
+  def description
+    weather.first.description
   end
 
   def code

@@ -1,0 +1,43 @@
+<div class="row">
+  <div id="conditions" class="col-lg-12" style="background: url(/assets/fallback/default.png) no-repeat; background-size: 100%;">
+    <div class="row"><p></p></div>
+    <%=simple_form_for @current_condition do |f|%>
+      <%=f.input :location, label: false, placeholder: "Enter your location (City, ST)"%>
+      <%=hidden_field_tag :lat%>
+      <%=hidden_field_tag :long%>
+      <div class="btn-group" role="group" style="width:100%">
+        <button type="button" class="btn btn-default" id="get_weather">Get Weather</button>
+        <button type="button" class="btn btn-default" id="my_location">My Location</button>
+      </div>
+    <%end%>
+
+    <div class="content-container">
+      <h1 id="location">Minneapolis</h1>
+      <p id="temp"><span id="value">-40</span>&deg;</p>
+      <p id="condition">Nobody likes a default of Cupertino, but we hope the real conditions are better than this...</p>
+      <div class="fb-like" data-href="http://mnweather.tandemdd.com/" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
+    </div>
+</div>
+
+<script>
+$("#my_location").click(function(e){
+  e.preventDefault();
+  navigator.geolocation.getCurrentPosition(geoSuccess, geoError, {});  
+});
+
+$("#get_weather").click(function(e){
+  e.preventDefault();
+  $("#new_current_condition").submit();
+});
+
+function geoSuccess(position){
+  $("#current_condition_location").val("My location");
+  $("#lat").val(position.coords.latitude);
+  $("#long").val(position.coords.longitude);
+  $("#new_current_condition").submit();
+}
+
+function geoError(d, textStatus, error){
+  console.error("getCurrentPosition failed, status: " + d.message);
+}
+</script>

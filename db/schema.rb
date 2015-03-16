@@ -11,7 +11,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150313041336) do
+ActiveRecord::Schema.define(version: 20150316015050) do
+
+  create_table "current_conditions", force: :cascade do |t|
+    t.integer  "phrase_id"
+    t.string   "location"
+    t.integer  "temperature"
+    t.string   "icon"
+    t.string   "description"
+    t.string   "code"
+    t.decimal  "humidity"
+    t.decimal  "lat"
+    t.decimal  "long"
+    t.decimal  "wind"
+    t.text     "raw_response"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "current_conditions", ["phrase_id"], name: "index_current_conditions_on_phrase_id"
 
   create_table "phrase_votes", force: :cascade do |t|
     t.integer  "phrase_id"

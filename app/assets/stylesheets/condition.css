@@ -1,0 +1,19 @@
+p#temp {
+  font-size: 8em;
+  margin: 0;
+  padding: 0;
+}
+
+div.fb-like_container {
+  text-align: right;
+}
+
+
+.content-container {
+  background-color: #FFF;
+  margin: 10px 0px;
+  border-radius: 6px;
+  opacity: 0.8;
+  padding: 5px;
+  text-align: center;
+}

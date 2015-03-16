@@ -7,10 +7,10 @@
     <tr>
       <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:season) %></th>
-      <th><%= model_class.human_attribute_name(:location) %></th>
+      <th><%= model_class.human_attribute_name(:condition) %></th>
+      <th><%= model_class.human_attribute_name(:temperature) %></th>
       <th><%= model_class.human_attribute_name(:phrase) %></th>
-      <th><%= model_class.human_attribute_name(:stock_image_id) %></th>
-      <th><%= model_class.human_attribute_name(:custom_image) %></th>
+      <th><%= model_class.human_attribute_name(:image) %></th>
       <th><%= model_class.human_attribute_name(:created_at) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
@@ -20,10 +20,10 @@
       <tr>
         <td><%= link_to phrase.id, phrase_path(phrase) %></td>
         <td><%= phrase.season %></td>
-        <td><%= phrase.location %></td>
+        <td><%= phrase.condition %></td>
+        <td><%= phrase.temperature %></td>
         <td><%= phrase.phrase %></td>
-        <td><%= phrase.stock_image_id %></td>
-        <td><%= phrase.custom_image %></td>
+        <td><%= image_tag(phrase.thumb) %></td>
         <td><%=l phrase.created_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),

@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :stock_images
-  resources :phrases do
-    get :by_location, on: :collection
-  end
+  resources :phrases
+  resources :current_conditions
+  root 'home#index'
 end
