@@ -1,0 +1,27 @@
+<% if !phrase.phrase_votes.by_user(current_user).up.exists? %>
+  <%=link_to(phrase_phrase_votes_path(phrase, vote_type: "Up"), 
+              class: "btn btn-default btn-lg", 
+              method: :post, remote: true) do %>
+    <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+  <% end %>
+<% else %>
+  <%=link_to(phrase_phrase_vote_path(phrase, phrase.phrase_votes.by_user(current_user).up.first), 
+            class: "btn btn-default btn-lg", style: "color: blue",
+            method: :delete, remote: true) do %>
+    <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+  <% end %>
+<% end %>
+
+<% if !phrase.phrase_votes.by_user(current_user).down.exists? %>
+  <%=link_to(phrase_phrase_votes_path(phrase, vote_type: "Down"), 
+              class: "btn btn-default btn-lg",
+              method: :post, remote: true) do %>
+    <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
+  <% end %>
+<% else %>
+  <%=link_to(phrase_phrase_vote_path(phrase, phrase.phrase_votes.by_user(current_user).down.first), 
+            class: "btn btn-default btn-lg", style: "color: blue",
+            method: :delete, remote: true) do %>
+    <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
+  <% end %>
+<% end %>

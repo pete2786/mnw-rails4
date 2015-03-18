@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150316015050) do
+ActiveRecord::Schema.define(version: 20150318041038) do
 
   create_table "current_conditions", force: :cascade do |t|
     t.integer  "phrase_id"
@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 20150316015050) do
     t.integer  "value",      default: 1
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+    t.string   "vote_type"
   end
 
   add_index "phrase_votes", ["phrase_id"], name: "index_phrase_votes_on_phrase_id"

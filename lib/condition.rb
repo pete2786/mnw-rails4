@@ -17,8 +17,8 @@ class Condition < SimpleDelegator
     end
 
     def geocode_by_zip(zip)
-      zip = ZIP_CODE.find(location)
-      self.geocode(zip["latitude"].to_f, zip["longitude"].to_f)
+      zip = ZIP_CODE.find(zip)
+      geocode(zip["latitude"].to_f, zip["longitude"].to_f)
     end
 
     def with(params)
