@@ -9,7 +9,7 @@
     <meta property="og:title" content="Minnesota Weather app" />
     <meta property="og:type" content="website" />    
     <meta property="og:description" content="The Minnesota Weather app provides the current weather, a (debately) funny response and a condition specific image. Try it out and share it with your friends!" />
-    <meta property="og:url" content="http://mnweather.tandemdd.com/" /> 
+    <meta property="og:url" content="http://localhost:3000/" /> 
     <meta property="fb:admins" content="13900152" /> 
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -64,22 +64,24 @@
                 Recent <b class="caret"></b>
               </a>
               <ul class="dropdown-menu">
-                <% CurrentCondition.recent.each do |c| %>
-                <li><%=link_to c.location, current_condition_path(c)%></li>
-                <% end %>
                 <% if current_user %>
-                  <li class="divider"></li>
                   <li><a href="#"><i>My Recent</i></a></li>
                   <% CurrentCondition.recent.by_user(current_user).each do |c| %>
                   <li><%=link_to c.location, current_condition_path(c)%></li>
                   <% end %>
+                <% end %>
+
+                <li class="divider"></li>
+
+                <% CurrentCondition.recent.each do |c| %>
+                <li><%=link_to c.location, current_condition_path(c)%></li>
                 <% end %>
               </ul>
             </li>
 
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                Contibute <b class="caret"></b>
+                Contribute <b class="caret"></b>
               </a>
               <ul class="dropdown-menu">
                 <li><%=link_to "Add a Phrase", new_phrase_path%></li>
@@ -94,7 +96,7 @@
                 <%=current_user.name%> <b class="caret"></b>
               </a>
               <ul class="dropdown-menu">
-                <li><a href="/user">Profile</a></li>
+                <li><a href="#">Profile</a></li>
                 <li class="divider"></li>
                 <li><%=link_to "Sign out", sessions_path, method: :delete%></li>
               </ul>
