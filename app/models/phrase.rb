@@ -7,6 +7,7 @@ class Phrase < ActiveRecord::Base
 
   has_many :phrase_votes
   belongs_to :stock_image
+  belongs_to :user
 
   mount_uploader :custom_image, ImageUploader
 
@@ -15,6 +16,7 @@ class Phrase < ActiveRecord::Base
   scope :with_condition, ->(c){where(condition: c)}
   scope :any_temperature, ->{where(temperature: 'any')}
   scope :any_condition, ->{where(condition: 'any')}
+  scope :defaults, ->{ any_temperature.any_condition.with_season('any') }
 
   before_validation :swap_image, except: :create
 
@@ -38,6 +40,22 @@ class Phrase < ActiveRecord::Base
 
   def self.temperatures
     TEMPERATURES.map{|s| [s.titleize, s]}
+  end
+
+  def voted_on?(user)
+    voted_up? || voted_down?
+  end
+
+  def voted_up?(user)
+    phrase_votes.by_user(user).up.exists?
+  end
+
+  def voted_down?(user)
+    phrase_votes.by_user(user).down.exists?
+  end
+
+  def vote_by(user)
+    phrase_votes.by_user(user).first
   end
 
   def image

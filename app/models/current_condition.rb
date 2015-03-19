@@ -3,8 +3,12 @@ require 'condition'
 class CurrentCondition < ActiveRecord::Base
   attr_accessor :condition
   belongs_to :phrase
+  belongs_to :user
 
   before_create :assign_phrase
+
+  scope :recent, ->{ order('id desc').limit(5) }
+  scope :by_user, ->(u){ where(user: u) }
 
   def self.with(params)
     new( condition_params(Condition.with(params.with_indifferent_access)) )
@@ -36,7 +40,7 @@ class CurrentCondition < ActiveRecord::Base
     elsif Phrase.with_season(cc.season).any_condition.with_temperature(cc.temperature_range).exists?
       self.phrase = Phrase.with_season(cc.season).any_condition.with_temperature(cc.temperature_range).sample
     else
-      self.phrase = nil
+      self.phrase = Phrase.defaults.sample
     end
   end
 end

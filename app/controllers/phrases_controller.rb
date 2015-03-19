@@ -11,6 +11,8 @@ class PhrasesController < ApplicationController
   end
 
   def create
+    @phrase.user = current_user
+    
     if @phrase.save
       redirect_to phrase_path(@phrase)
     else

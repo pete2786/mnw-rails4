@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150318041038) do
+ActiveRecord::Schema.define(version: 20150319034737) do
 
   create_table "current_conditions", force: :cascade do |t|
     t.integer  "phrase_id"
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 20150318041038) do
     t.text     "raw_response"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.integer  "user_id"
   end
 
   add_index "current_conditions", ["phrase_id"], name: "index_current_conditions_on_phrase_id"
@@ -63,6 +64,7 @@ ActiveRecord::Schema.define(version: 20150318041038) do
     t.string   "location"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "user_id"
   end
 
   create_table "users", force: :cascade do |t|
