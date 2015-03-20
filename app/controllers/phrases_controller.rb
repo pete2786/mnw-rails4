@@ -4,10 +4,7 @@ class PhrasesController < ApplicationController
   load_and_authorize_resource
 
   def new
-    if params[:location]
-      condition_classifer = ConditionClassifier.new(Condition.location(params[:location]))
-      @phrase.attributes = condition_classifer.phrase_params
-    end
+    @phrase.attributes = phrase_params
   end
 
   def create

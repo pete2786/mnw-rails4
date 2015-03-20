@@ -11,7 +11,7 @@
       </div>
       <p><small>As of: <%=l @current_condition.created_at%> | 
         <%=link_to "Refresh conditions", current_conditions_path(lat: @current_condition.lat, long: @current_condition.long), method: :post%> |
-        <%=link_to "Add phrase for conditions", new_phrase_path(location: @current_condition.location)%>
+        <%=link_to "Add phrase for conditions", new_phrase_path(phrase: @current_condition.phrase_params)%>
       </small></p>
       <div class="fb-like" data-href="http://localhost:3000/" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
     </div>

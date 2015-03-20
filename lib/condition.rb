@@ -6,13 +6,13 @@ class Condition < SimpleDelegator
       if !location.to_s.index(/^\d{5}$/).nil?
         geocode_by_zip(location)
       else
-        condition = OpenWeather::Current.city(location)
+        condition = try_with_timeout{ OpenWeather::Current.city(location) }
         new(Hashie::Mash.new(condition))
       end
     end
 
     def geocode(lat, long)
-      condition = OpenWeather::Current.geocode(lat, long)
+      condition = try_with_timeout{ OpenWeather::Current.geocode(lat, long) }
       new(Hashie::Mash.new(condition))
     end
 
@@ -26,6 +26,16 @@ class Condition < SimpleDelegator
         geocode(params[:lat], params[:long])
       else
         location(params[:current_condition][:location] || "Ely,Mn")
+      end
+    end
+
+    def try_with_timeout(&block)
+      Timeout::timeout(5) do
+        begin
+          block.call
+        rescue Timeout::Error
+          {}
+        end
       end
     end
   end

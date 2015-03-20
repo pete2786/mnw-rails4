@@ -3,7 +3,7 @@ require 'season'
 class ConditionClassifier
   include Season
   attr_accessor :conditions
-  delegate :code, :wind_speed, :temperature, :humidity, to: :conditions
+  delegate :code, :wind_speed, :temperature, :humidity, to: :conditions, allow_nil: true
 
   WINDY_MPH = 15
   HUMIDITY_PERCENTAGE = 80

@@ -31,16 +31,20 @@ class CurrentCondition < ActiveRecord::Base
   end
 
   def assign_phrase
+    self.phrase = determine_phrase
+  end
+
+  def determine_phrase
+    return Phrase.defaults.sample if condition == {}
     cc = ConditionClassifier.new(condition)
 
-    if Phrase.with_season(cc.season).with_condition(cc.condition).with_temperature(cc.temperature_range).exists?
-      self.phrase = Phrase.with_season(cc.season).with_condition(cc.condition).with_temperature(cc.temperature_range).sample
-    elsif Phrase.with_season(cc.season).with_condition(cc.condition).any_temperature.exists?
-      self.phrase = Phrase.with_season(cc.season).with_condition(cc.condition).any_temperature.sample
-    elsif Phrase.with_season(cc.season).any_condition.with_temperature(cc.temperature_range).exists?
-      self.phrase = Phrase.with_season(cc.season).any_condition.with_temperature(cc.temperature_range).sample
-    else
-      self.phrase = Phrase.defaults.sample
-    end
+    return  Phrase.with_season(cc.season).with_condition(cc.condition).with_temperature(cc.temperature_range).sample ||
+            Phrase.with_season(cc.season).with_condition(cc.condition).any_temperature.sample ||
+            Phrase.with_season(cc.season).any_condition.with_temperature(cc.temperature_range).sample || 
+            Phrase.defaults.sample
+  end
+
+  def phrase_params
+    ConditionClassifier.new(self).phrase_params
   end
 end
