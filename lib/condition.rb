@@ -7,13 +7,13 @@ class Condition < SimpleDelegator
         geocode_by_zip(location)
       else
         condition = try_with_timeout{ OpenWeather::Current.city(location) }
-        new(Hashie::Mash.new(condition))
+        condition ? new(Hashie::Mash.new(condition)) : nil
       end
     end
 
     def geocode(lat, long)
       condition = try_with_timeout{ OpenWeather::Current.geocode(lat, long) }
-      new(Hashie::Mash.new(condition))
+      condition ? new(Hashie::Mash.new(condition)) : nil
     end
 
     def geocode_by_zip(zip)
@@ -33,8 +33,8 @@ class Condition < SimpleDelegator
       Timeout::timeout(5) do
         begin
           block.call
-        rescue Timeout::Error
-          {}
+        rescue Timeout::Error, JSON::ParserError
+          nil
         end
       end
     end

@@ -7,26 +7,31 @@ class CurrentCondition < ActiveRecord::Base
 
   before_create :assign_phrase
 
+  delegate :name, :temp_farenheit, :icon, :description, :code, :humidity, :lat, :long, :wind, :to_hash,
+            to: :condition, allow_nil: true, prefix: true
+  validates :location, :temperature, :icon, :description, :code, :humidity, presence: true
+
   scope :recent, ->{ order('id desc').limit(5) }
   scope :by_user, ->(u){ where(user: u) }
 
   def self.with(params)
-    new( condition_params(Condition.with(params.with_indifferent_access)) )
+    cc = new( condition: Condition.with(params.with_indifferent_access) )
+    cc.attributes = cc.condition_params
+    cc
   end
 
-  def self.condition_params(condition)
+  def condition_params
     {
-      location: condition.name,
-      temperature: condition.temp_farenheit,
-      icon: condition.icon,
-      description: condition.description,
-      code: condition.code,
-      humidity: condition.humidity,
-      lat: condition.lat,
-      long: condition.long,
-      wind: condition.wind,
-      raw_response: condition.to_hash.to_s,
-      condition: condition    
+      location: condition_name,
+      temperature: condition_temp_farenheit,
+      icon: condition_icon,
+      description: condition_description,
+      code: condition_code,
+      humidity: condition_humidity,
+      lat: condition_lat,
+      long: condition_long,
+      wind: condition_wind,
+      raw_response: condition_to_hash.to_s
     }
   end
 
@@ -35,7 +40,7 @@ class CurrentCondition < ActiveRecord::Base
   end
 
   def determine_phrase
-    return Phrase.defaults.sample if condition == {}
+    return Phrase.defaults.sample if condition == nil
     cc = ConditionClassifier.new(condition)
 
     return  Phrase.with_season(cc.season).with_condition(cc.condition).with_temperature(cc.temperature_range).sample ||

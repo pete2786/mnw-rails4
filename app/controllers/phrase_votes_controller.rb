@@ -1,4 +1,6 @@
 class PhraseVotesController < ApplicationController
+  before_filter :auth_required
+  
   def create
     @phrase = Phrase.find(params[:phrase_id])
 

@@ -1,10 +1,9 @@
-require 'condition'
-
 class PhrasesController < ApplicationController
+  before_filter :auth_required
   load_and_authorize_resource
 
   def new
-    @phrase.attributes = phrase_params
+    @phrase.attributes = phrase_params if params[:phrase]
   end
 
   def create
