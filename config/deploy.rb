@@ -1,5 +1,5 @@
 set :application, "mnw-rails4"
-set :repository, Rails.application.secrets.github_repo
+set :repository,  "git@github.com:pete2786/mnw-rails4.git"
 set :user, "deploy"
 set :rvm_type, :system
 
@@ -9,13 +9,13 @@ require "rvm/capistrano"
 set :scm, :git
 set :branch, "master"
 set :deploy_via, :remote_cache
-set :deploy_to, Rails.application.secrets.deploy_directory
+set :deploy_to, "/home/deploy/apps/mnw-rails4"
 set :use_sudo, false
 
 
-role :web, Rails.application.secrets.deploy_server
-role :app, Rails.application.secrets.deploy_server
-role :db,  Rails.application.secrets.deploy_server, :primary => true # This is where Rails migrations will run
+role :web, "mnweather.tandemdd.com"
+role :app, "mnweather.tandemdd.com"
+role :db,  "mnweather.tandemdd.com", :primary => true # This is where Rails migrations will run
 
 before 'deploy:restart', "deploy:copy_config"
 
