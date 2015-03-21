@@ -12,6 +12,7 @@ class PhrasesController < ApplicationController
     if @phrase.save
       redirect_to phrase_path(@phrase)
     else
+      byebug
       render :new
     end
   end
@@ -26,6 +27,6 @@ class PhrasesController < ApplicationController
 
   def phrase_params
     params.require(:phrase).permit(:season, :phrase, :stock_image_id, :image, :remote_custom_image_url, :custom_image_cache,
-                                   :condition, :temperature)
+                                   :condition, :temperature, :custom_image)
   end
 end
