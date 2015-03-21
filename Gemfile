@@ -37,7 +37,7 @@ gem 'carrierwave-aws'
 
 #deploy
 gem 'capistrano', '2.15.5'
-gem 'rvm-capistrano', '1.2.7'
+gem 'rvm-capistrano', '1.2.7', require: false
 
 group :production do
   gem 'mysql2'
