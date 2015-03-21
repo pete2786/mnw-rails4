@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150319034737) do
+ActiveRecord::Schema.define(version: 20150321194216) do
 
   create_table "current_conditions", force: :cascade do |t|
     t.integer  "phrase_id"
@@ -74,8 +74,9 @@ ActiveRecord::Schema.define(version: 20150319034737) do
     t.string   "image"
     t.string   "email"
     t.string   "token"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.boolean  "admin",      default: false
   end
 
 end
