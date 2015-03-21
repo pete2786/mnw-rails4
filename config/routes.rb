@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   root 'home#index'
+  get 'about' => 'home#about'
+  get 'privacy' => 'home#privacy'
 
   resources :stock_images
   resources :phrases do
