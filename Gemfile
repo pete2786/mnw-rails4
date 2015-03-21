@@ -35,6 +35,14 @@ gem "mini_magick"
 gem 'carrierwave'
 gem 'carrierwave-aws'
 
+#deploy
+gem 'capistrano', '2.15.5'
+gem 'rvm-capistrano', '1.2.7'
+
+group :production do
+  gem 'mysql2'
+end
+
 group :development do
   gem 'rspec-rails'
   gem 'guard-rspec'
