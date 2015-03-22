@@ -9,5 +9,6 @@ Rails.application.routes.draw do
   end
   resources :current_conditions  
   resource :sessions
+  resources :users, only: [:show]
   get "/auth/:provider/callback" => "sessions#create"
 end

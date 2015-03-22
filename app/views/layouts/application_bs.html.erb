@@ -117,7 +117,12 @@
       </div><!--/row-->
 
       <footer>
-        <p>&copy; Minnesota Weather <%=Date.today.year%></p>
+        <p>
+          &copy; Minnesota Weather <%=Date.today.year%> |
+          <%=link_to "About", about_path%> |
+          <%=link_to "Privacy", about_path%> |
+          <%=link_to "Contact Us", "emailto: weatherminnesota@gmail.com"%>
+        </p>
       </footer>
 
     </div> <!-- /container -->

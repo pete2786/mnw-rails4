@@ -13,7 +13,7 @@
         <%=link_to "Refresh conditions", current_conditions_path(lat: @current_condition.lat, long: @current_condition.long), method: :post%> |
         <%=link_to "Add phrase for conditions", new_phrase_path(phrase: @current_condition.phrase_params)%>
       </small></p>
-      <p><small>Submitted by: <%=@current_condition.phrase.user_name%></small></p>
+      <p><small>Submitted by: <%=link_to @current_condition.phrase.user_name, user_path(@current_condition.phrase.user)%></small></p>
       <div class="fb-like" data-href="http://localhost:3000/" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
     </div>
 
