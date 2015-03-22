@@ -19,7 +19,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'draper'
 
 #looks
-gem 'twitter-bootstrap-rails'
+gem 'bootstrap-sass', '~> 3.3.4'
 gem 'simple_form'
 gem 'image-picker-rails'
 
