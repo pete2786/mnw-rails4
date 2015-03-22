@@ -13,4 +13,12 @@ class User < ActiveRecord::Base
   def phrase_vote_rep
     phrase_votes.up.count - phrase_votes.down.count
   end
+
+  def phrase_rep_name
+    ((badge_names & ['rookie', 'pro', 'minnesotan']).first || 'N/A').capitalize
+  end
+
+  def badge_names
+    @badge_names ||= badges.map(&:name)
+  end
 end

@@ -1,12 +1,16 @@
-<h1><%=@user.name%>'s profile</h1>
+<h1><%=@user.name%>'s profile (<%= @user.points %> points)</h1>
+<% if @user == current_user %>
 <p>
   <%=link_to "My Phrases", phrases_path, class: "btn btn-default"%>
 </p>
+<% end%>
 
 <h2>Badges</h2>
 <ul>
 <% @user.badges.each do |badge| %>
-  <li><strong><%= badge.name.capitalize %></strong> - <%= badge.description %></li>
+  <li><strong><%= badge.name.capitalize %> <%if badge.level%>(Level <%=badge.level%>)<%end%></strong> - <%= badge.description %>
+
+  </li>
 <% end %>
 </ul>
 
