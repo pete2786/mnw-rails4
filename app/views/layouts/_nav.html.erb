@@ -25,9 +25,8 @@
             <% CurrentCondition.recent.by_user(current_user).each do |c| %>
             <li><%=link_to c.location, current_condition_path(c)%></li>
             <% end %>
+            <li class="divider"></li>
           <% end %>
-
-          <li class="divider"></li>
 
           <% CurrentCondition.recent.each do |c| %>
           <li><%=link_to c.location, current_condition_path(c)%></li>

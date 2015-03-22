@@ -22,24 +22,24 @@
 </div>
 
 <script>
-$("#my_location").click(function(e){
-  e.preventDefault();
-  navigator.geolocation.getCurrentPosition(geoSuccess, geoError, {});  
-});
+  $("#my_location").click(function(e){
+    e.preventDefault();
+    navigator.geolocation.getCurrentPosition(geoSuccess, geoError, {});  
+  });
 
-$("#get_weather").click(function(e){
-  e.preventDefault();
-  $("#new_current_condition").submit();
-});
+  $("#get_weather").click(function(e){
+    e.preventDefault();
+    $("#new_current_condition").submit();
+  });
 
-function geoSuccess(position){
-  $("#current_condition_location").val("My location");
-  $("#lat").val(position.coords.latitude);
-  $("#long").val(position.coords.longitude);
-  $("#new_current_condition").submit();
-}
+  function geoSuccess(position){
+    $("#current_condition_location").val("My location");
+    $("#lat").val(position.coords.latitude);
+    $("#long").val(position.coords.longitude);
+    $("#new_current_condition").submit();
+  }
 
-function geoError(d, textStatus, error){
-  console.error("getCurrentPosition failed, status: " + d.message);
-}
+  function geoError(d, textStatus, error){
+    console.error("getCurrentPosition failed, status: " + d.message);
+  }
 </script>
