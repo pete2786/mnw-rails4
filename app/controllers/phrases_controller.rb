@@ -16,7 +16,6 @@ class PhrasesController < ApplicationController
     if @phrase.save
       redirect_to phrase_path(@phrase)
     else
-      byebug
       render :new
     end
   end
