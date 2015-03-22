@@ -25,19 +25,19 @@
 
     <!-- For third-generation iPad with high-resolution Retina display: -->
     <!-- Size should be 144 x 144 pixels -->
-    <%= favicon_link_tag 'apple-touch-icon-144x144-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '144x144' %>
+    <%= favicon_link_tag 'apple-icon-144x144.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '144x144' %>
 
     <!-- For iPhone with high-resolution Retina display: -->
     <!-- Size should be 114 x 114 pixels -->
-    <%= favicon_link_tag 'apple-touch-icon-114x114-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '114x114' %>
+    <%= favicon_link_tag 'apple-icon-114x114.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '114x114' %>
 
     <!-- For first- and second-generation iPad: -->
     <!-- Size should be 72 x 72 pixels -->
-    <%= favicon_link_tag 'apple-touch-icon-72x72-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '72x72' %>
+    <%= favicon_link_tag 'apple-icon-72x72.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '72x72' %>
 
     <!-- For non-Retina iPhone, iPod Touch, and Android 2.1+ devices: -->
     <!-- Size should be 57 x 57 pixels -->
-    <%= favicon_link_tag 'apple-touch-icon-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png' %>
+    <%= favicon_link_tag 'apple-icon.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png' %>
 
     <!-- For all other devices -->
     <!-- Size should be 32 x 32 pixels -->
@@ -46,6 +46,25 @@
     <%= javascript_include_tag "application" %>
   </head>
   <body>
+
+    <div class="modal fade" id="sign_in_modal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">You must sign in to continue</h4>
+          </div>
+          <div class="modal-body">
+            <p>Please <%=link_to "Sign in with Facebook", signin_path%></p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <%=link_to "Sign in with Facebook", signin_path, class: "btn btn-primary"%>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="container">
 
       <div class="navbar navbar-default">
@@ -55,7 +74,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="/">Minnesota Weather (V2)</a>
+          <a class="navbar-brand" href="/">Minnesota Weather</a>
         </div>
         <div class="navbar-collapse collapse navbar-responsive-collapse">
           <ul class="nav navbar-nav">
@@ -84,8 +103,8 @@
                 Contribute <b class="caret"></b>
               </a>
               <ul class="dropdown-menu">
-                <li><%=link_to "Add a Phrase", new_phrase_path%></li>
-                <li><%=link_to "My Phrases", phrases_path%></li>
+                <li><%=link_to_or_siginin("Add a Phrase", new_phrase_path)%></li>
+                <li><%=link_to_or_siginin("My Phrases", phrases_path)%></li>
               </ul>
             </li>
           </ul>
