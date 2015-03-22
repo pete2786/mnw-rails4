@@ -2,6 +2,10 @@ class PhrasesController < ApplicationController
   before_filter :auth_required
   load_and_authorize_resource
 
+  def index
+    @phrases = current_user.phrases
+  end
+
   def new
     @phrase.attributes = phrase_params if params[:phrase]
   end

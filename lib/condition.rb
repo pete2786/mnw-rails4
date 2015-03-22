@@ -25,17 +25,16 @@ class Condition < SimpleDelegator
       if !params[:lat].blank? && !params[:long].blank?
         geocode(params[:lat], params[:long])
       else
-        location(params[:current_condition][:location] || "Ely,Mn")
+        input_location = params[:current_condition][:location].blank? ? "Ely,Mn" : params[:current_condition][:location]
+        location(input_location)
       end
     end
 
     def try_with_timeout(&block)
-      Timeout::timeout(5) do
-        begin
-          block.call
-        rescue Timeout::Error, JSON::ParserError
-          nil
-        end
+      begin
+        Timeout::timeout(10) { block.call }
+      rescue Timeout::Error, JSON::ParserError
+        nil
       end
     end
   end

@@ -2,6 +2,7 @@ class PhraseVotesController < ApplicationController
   before_filter :auth_required
   
   def create
+    authorize! :create, PhraseVote
     @phrase = Phrase.find(params[:phrase_id])
 
     if @phrase.vote_by(current_user)
@@ -16,6 +17,7 @@ class PhraseVotesController < ApplicationController
   def destroy
     @phrase = Phrase.find(params[:phrase_id])
     vote = @phrase.phrase_votes.find(params[:id])
+    authorize! :destroy, vote
 
     vote.destroy
   end

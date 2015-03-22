@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   root 'home#index'
+  get 'about' => 'home#about'
+  get 'privacy' => 'home#privacy'
 
   resources :stock_images
   resources :phrases do
@@ -7,5 +9,6 @@ Rails.application.routes.draw do
   end
   resources :current_conditions  
   resource :sessions
+  resources :users, only: [:show]
   get "/auth/:provider/callback" => "sessions#create"
 end

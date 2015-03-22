@@ -9,6 +9,8 @@ class Phrase < ActiveRecord::Base
   belongs_to :stock_image
   belongs_to :user
 
+  delegate :name, to: :user, prefix: true, allow_nil: true
+
   mount_uploader :custom_image, ImageUploader
 
   scope :with_season, ->(s){where("season = ? or season = 'any'", s)}

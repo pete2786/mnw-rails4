@@ -1,0 +1,12 @@
+<h1><%=@user.name%>'s profile</h1>
+<p>
+  <%=link_to "My Phrases", phrases_path, class: "btn btn-default"%>
+</p>
+
+<h2>Badges</h2>
+<p>Coming soon...</p>
+
+<% if @user == current_user %>
+<h2>Cancel my account</h2>
+<p>Please <%=link_to "contact us", "emailto: weatherminnesota@gmail.com"%> if you would like to cancel your account.</p>
+<% end %>

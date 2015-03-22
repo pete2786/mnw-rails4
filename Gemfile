@@ -19,7 +19,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'draper'
 
 #looks
-gem 'twitter-bootstrap-rails'
+gem 'bootstrap-sass', '~> 3.3.4'
 gem 'simple_form'
 gem 'image-picker-rails'
 
@@ -34,6 +34,14 @@ gem 'open-weather'
 gem "mini_magick"
 gem 'carrierwave'
 gem 'carrierwave-aws'
+
+#deploy
+gem 'capistrano', '2.15.5'
+gem 'rvm-capistrano', '1.2.7', require: false
+
+group :production do
+  gem 'mysql2'
+end
 
 group :development do
   gem 'rspec-rails'
