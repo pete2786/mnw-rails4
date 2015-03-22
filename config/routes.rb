@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   get 'about' => 'home#about'
   get 'privacy' => 'home#privacy'
   get 'latest' => 'home#latest'
+  get 'reputation' => 'home#reputation'
 
   resources :stock_images
   resources :phrases do
