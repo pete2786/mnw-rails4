@@ -19,6 +19,11 @@ class Phrase < ActiveRecord::Base
   scope :any_temperature, ->{where(temperature: 'any')}
   scope :any_condition, ->{where(condition: 'any')}
   scope :defaults, ->{ any_temperature.any_condition.with_season('any') }
+  scope :top, ->(n){  joins("LEFT JOIN phrase_votes up ON up.phrase_id = phrases.id and up.vote_type = 'Up'")
+                      .joins("LEFT JOIN phrase_votes down ON down.phrase_id = phrases.id  and down.vote_type = 'Down'")
+                      .group('phrases.id').order('COUNT(up.id) - COUNT(down.id) DESC')
+                      .limit(n)
+                    }
 
   before_validation :swap_image, except: :create
 
@@ -42,6 +47,10 @@ class Phrase < ActiveRecord::Base
 
   def self.temperatures
     TEMPERATURES.map{|s| [s.titleize, s]}
+  end
+  
+  def phrase_vote_rep
+    phrase_votes.up.count - phrase_votes.down.count
   end
 
   def voted_on?(user)

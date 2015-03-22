@@ -4,6 +4,12 @@ class User < ActiveRecord::Base
   has_many :phrase_votes, through: :phrases
   has_merit
 
+  scope :top, ->(n){ joins('LEFT JOIN merit_scores ON merit_scores.sash_id = "users".sash_id ' \
+                      'LEFT JOIN merit_score_points ON merit_score_points.score_id = merit_scores.id')
+                      .group('"users".id', '"merit_scores".sash_id').order('SUM(num_points) DESC')
+                      .limit(n)
+                    }
+
   after_update :process_badges
 
   def process_badges
