@@ -25,7 +25,8 @@ class Condition < SimpleDelegator
       if !params[:lat].blank? && !params[:long].blank?
         geocode(params[:lat], params[:long])
       else
-        location(params[:current_condition][:location] || "Ely,Mn")
+        input_location = params[:current_condition][:location].blank? ? "Ely,Mn" : params[:current_condition][:location]
+        location(input_location)
       end
     end
 
