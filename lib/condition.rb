@@ -30,12 +30,10 @@ class Condition < SimpleDelegator
     end
 
     def try_with_timeout(&block)
-      Timeout::timeout(5) do
-        begin
-          block.call
-        rescue Timeout::Error, JSON::ParserError
-          nil
-        end
+      begin
+        Timeout::timeout(5) { block.call }
+      rescue Timeout::Error, JSON::ParserError
+        nil
       end
     end
   end
