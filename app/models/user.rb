@@ -1,9 +1,8 @@
 class User < ActiveRecord::Base
-  has_merit
-
   has_many :phrases
   has_many :current_conditions
   has_many :phrase_votes, through: :phrases
+  has_merit
 
   after_update :process_badges
 

@@ -4,7 +4,11 @@
 </p>
 
 <h2>Badges</h2>
-<p>Coming soon...</p>
+<ul>
+<% @user.badges.each do |badge| %>
+  <li><strong><%= badge.name.capitalize %></strong> - <%= badge.description %></li>
+<% end %>
+</ul>
 
 <% if @user == current_user %>
 <h2>Cancel my account</h2>

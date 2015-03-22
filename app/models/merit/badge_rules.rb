@@ -65,12 +65,6 @@ module Merit
       grant_on 'phrase_votes#create', badge: 'revered', to: :phrase_user do |vote|
         vote.phrase_user.phrase_vote_rep > 1000
       end
-
-      # grant_on 'registrations#update', badge: 'autobiographer',
-      #   temporary: true, model_name: 'User' do |user|
-      #
-      #   user.name.length > 4
-      # end
     end
   end
 end
