@@ -37,6 +37,7 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     addressable (2.3.6)
+    ambry (0.3.1)
     arel (6.0.0)
     autoprefixer-rails (5.1.7.1)
       execjs
@@ -149,6 +150,8 @@ GEM
     lumberjack (1.0.9)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
+    merit (2.3.1)
+      ambry (~> 0.3.0)
     method_source (0.8.2)
     mime-types (2.4.3)
     mini_magick (4.1.0)
@@ -310,6 +313,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   launchy
+  merit
   mini_magick
   mysql2
   omniauth-facebook

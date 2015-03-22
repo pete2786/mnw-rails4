@@ -35,6 +35,9 @@ gem "mini_magick"
 gem 'carrierwave'
 gem 'carrierwave-aws'
 
+# Merit
+gem 'merit'
+
 #deploy
 gem 'capistrano', '2.15.5'
 gem 'rvm-capistrano', '1.2.7', require: false

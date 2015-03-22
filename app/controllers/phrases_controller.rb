@@ -29,6 +29,11 @@ class PhrasesController < ApplicationController
     end
   end
 
+  def destroy
+    @phrase.destroy
+    redirect_to phrases_path
+  end
+
   def phrase_params
     params.require(:phrase).permit(:season, :phrase, :stock_image_id, :image, :remote_custom_image_url, :custom_image_cache,
                                    :condition, :temperature, :custom_image)
