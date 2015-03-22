@@ -18,7 +18,7 @@ module ApplicationHelper
 
   def conditions(current)
     content_for(:title) { "#{current.location}: #{current.temperature}&deg;".html_safe }
-    content_for(:description) { "<#{current.description}...#{current.phrase.phrase}. Find more humor in weather at Minnesota weather." }
+    content_for(:description) { "#{current.description}...#{current.phrase.phrase}. Find more humor in weather at Minnesota weather." }
     content_for(:og_image) { current.phrase.image.url }
     content_for(:og_url) { current_condition_url(current) }
   end
