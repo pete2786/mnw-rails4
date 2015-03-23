@@ -1,10 +1,11 @@
 module Season
   def season
     case day_hash
-      when 101..401 then 'winter'
-      when 402..630 then 'spring'
-      when 701..930 then 'summer'
-      when 1001..1231 then 'fall'
+      when 101..320 then 'winter'
+      when 321..620 then 'spring'
+      when 621..922 then 'summer'
+      when 923..1221 then 'fall'
+      else 'winter'
     end
   end
 
