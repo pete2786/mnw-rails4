@@ -29,7 +29,11 @@
 
   $("#get_weather").click(function(e){
     e.preventDefault();
-    $("#new_current_condition").submit();
+
+    if($("#current_condition_location").val() === "")
+      alert("You must enter a location or enable location services and click My Location");
+    else
+      $("#new_current_condition").submit();
   });
 
   function geoSuccess(position){
@@ -41,5 +45,6 @@
 
   function geoError(d, textStatus, error){
     console.error("getCurrentPosition failed, status: " + d.message);
+    alert("Unable to get you location" + d.message);
   }
 </script>
