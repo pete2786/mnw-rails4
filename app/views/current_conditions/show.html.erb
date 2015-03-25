@@ -12,11 +12,17 @@
         <%=render partial: "phrase_votes/phrase_vote", locals: { phrase: @current_condition.phrase }%>
       </div>
       <p></p>
+      <p>
+        <%=link_to current_conditions_path(lat: @current_condition.lat, long: @current_condition.long), method: :post, class: "btn btn-default btn-small" do%>
+          <span class="glyphicon glyphicon-repeat"></span> Refresh
+        <% end %> 
+        <%=link_to_or_signin_block(new_phrase_path(phrase: @current_condition.phrase_params), class: "btn btn-default btn") do%>
+          <span class="glyphicon glyphicon-plus"></span> Add Phrase 
+        <% end %>
+      </p>
       <p><small>As of: <%=l @current_condition.created_at%>
-        <%=link_to "Refresh conditions", current_conditions_path(lat: @current_condition.lat, long: @current_condition.long), method: :post, class: "btn btn-default btn-xs"%> 
-        <%=link_to_or_siginin "Add phrase for conditions", new_phrase_path(phrase: @current_condition.phrase_params), class: "btn btn-default btn-xs"%>
       </small></p>
-      <p><small>Submitted by: <%=link_to_or_siginin @current_condition.phrase.user_name, user_path(@current_condition.phrase_user)%> (<%=@current_condition.phrase_user.phrase_rep_name%>)</small></p>
+      <p><small>Submitted by: <%=link_to_or_siginin(@current_condition.phrase.user_name, user_path(@current_condition.phrase_user))%> (<%=@current_condition.phrase_user.phrase_rep_name%>)</small></p>
       <div class="fb-like" data-href="<%=current_condition_path(@current_condition)%>" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
     </div>
 

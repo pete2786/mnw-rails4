@@ -12,8 +12,8 @@ module ApplicationHelper
     current_user ? link_to(name, path, options) : link_to(name, '#', signin_options.merge(options))
   end
 
-  def link_to_or_signin_block(path, &block)
-    current_user ? link_to(path){ block.call } : link_to('#', signin_options) { block.call }
+  def link_to_or_signin_block(path, options={}, &block)
+    current_user ? link_to(path, options){ block.call } : link_to('#', signin_options.merge(options)) { block.call }
   end
 
   def signin_options
