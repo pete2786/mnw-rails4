@@ -8,8 +8,7 @@
 <h2>Badges</h2>
 <ul>
 <% @user.badges.each do |badge| %>
-  <li><strong><%= badge.name.capitalize %> <%if badge.level%>(Level <%=badge.level%>)<%end%></strong> - <%= badge.description %>
-
+  <li><%= badge_image(badge)%> <%= badge.name.capitalize %> <%if badge.level%>(Level <%=badge.level%>)<%end%> - <%= badge.description %>
   </li>
 <% end %>
 </ul>

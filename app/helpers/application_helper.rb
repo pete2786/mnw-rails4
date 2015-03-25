@@ -34,4 +34,9 @@ module ApplicationHelper
     content_for(:og_image) { current.phrase.image.url }
     content_for(:og_url) { current_condition_url(current) }
   end
+
+  def badge_image(badge)
+    filename = badge.level ? "#{badge.name}_level#{badge.level}" : badge.name
+    image_tag(asset_path("badges/#{filename}.png"), width: 25, height: 25)
+  end
 end
