@@ -8,8 +8,20 @@ module ApplicationHelper
     "/auth/facebook?origin=#{request.url}"
   end
 
-  def link_to_or_siginin(name, path)
-    current_user ? link_to(name, path) : link_to(name, '#', "data-toggle": 'modal', "data-target": '#sign_in_modal')
+  def link_to_or_siginin(name, path, options={})
+    current_user ? link_to(name, path, options) : link_to(name, '#', signin_options.merge(options))
+  end
+
+  def link_to_or_signin_block(path, &block)
+    current_user ? link_to(path){ block.call } : link_to('#', signin_options) { block.call }
+  end
+
+  def signin_options
+    {
+      "data-toggle": 'modal',
+      "data-toggle": 'modal',
+      "data-target": '#sign_in_modal'
+    }
   end
 
   def title(page_title)

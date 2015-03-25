@@ -39,10 +39,16 @@
           Contribute <b class="caret"></b>
         </a>
         <ul class="dropdown-menu">
-          <li><%=link_to_or_siginin("Add a Phrase", new_phrase_path)%></li>
+          <li><%=link_to_or_signin_block(new_phrase_path) do%>
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add a Phrase
+          <%end%>
+          </li>
           <li><%=link_to_or_siginin("My Phrases", phrases_path)%></li>
           <li class="divider"></li>
-          <li><%=link_to_or_siginin("Top Contributions", contributions_path)%>
+          <li><%=link_to_or_signin_block(contributions_path) do%>
+            <span class="glyphicon glyphicon-list" aria-hidden="true"></span> Leaderboard
+            <% end %>
+          </li>
         </ul>
       </li>
 
@@ -51,9 +57,10 @@
           About <b class="caret"></b>
         </a>
         <ul class="dropdown-menu">
-          <li><%=link_to("Latest Features", latest_path)%></li>
-          <li><%=link_to("About/Contact", about_path)%></li>
-          <li><%=link_to("Reputation Explained", reputation_path)%></li>
+          <li><%=link_to("Latest Update", latest_path)%></li>
+          <li><%=link_to("About", about_path)%></li>
+          <li><%=link_to("Contact", about_path)%></li>
+          <li><%=link_to("Reputation", reputation_path)%></li>
         </ul>
       </li>
     </ul>
@@ -65,13 +72,21 @@
           <%=current_user.name%> <b class="caret"></b>
         </a>
         <ul class="dropdown-menu">
-          <li><%=link_to "Profile", user_path(current_user)%></a></li>
+          <li><%=link_to user_path(current_user) do%>
+            <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Profile
+            <% end %>
+          </li>
           <li class="divider"></li>
-          <li><%=link_to "Sign out", sessions_path, method: :delete%></li>
+          <li><%=link_to sessions_path, method: :delete do%>
+            <span class="glyphicon glyphicon-off" aria-hidden="true"></span> Sign Out
+            <%end%></li>
         </ul>
       </li>
       <% else %>
-      <li><%=link_to "Sign in with Facebook", '/auth/facebook'%></li>
+      <li><%=link_to signin_path do%>
+          <span class="glyphicon glyphicon-off" aria-hidden="true"></span> Sign in with Facebook
+        <%end%>
+      </li>
       <% end %>
       
     </ul>

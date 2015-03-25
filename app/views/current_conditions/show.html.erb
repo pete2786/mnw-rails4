@@ -11,9 +11,10 @@
       <div id="phrase_vote_container">
         <%=render partial: "phrase_votes/phrase_vote", locals: { phrase: @current_condition.phrase }%>
       </div>
-      <p><small>As of: <%=l @current_condition.created_at%> | 
-        <%=link_to "Refresh conditions", current_conditions_path(lat: @current_condition.lat, long: @current_condition.long), method: :post%> |
-        <%=link_to_or_siginin "Add phrase for conditions", new_phrase_path(phrase: @current_condition.phrase_params)%>
+      <p></p>
+      <p><small>As of: <%=l @current_condition.created_at%>
+        <%=link_to "Refresh conditions", current_conditions_path(lat: @current_condition.lat, long: @current_condition.long), method: :post, class: "btn btn-default btn-xs"%> 
+        <%=link_to_or_siginin "Add phrase for conditions", new_phrase_path(phrase: @current_condition.phrase_params), class: "btn btn-default btn-xs"%>
       </small></p>
       <p><small>Submitted by: <%=link_to_or_siginin @current_condition.phrase.user_name, user_path(@current_condition.phrase_user)%> (<%=@current_condition.phrase_user.phrase_rep_name%>)</small></p>
       <div class="fb-like" data-href="<%=current_condition_path(@current_condition)%>" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
