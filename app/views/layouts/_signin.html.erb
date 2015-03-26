@@ -10,8 +10,18 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-        <%=link_to "Sign in with Facebook", signin_path, class: "btn btn-primary"%>
+        <%=link_to "Sign in with Facebook", signin_path, class: "btn btn-primary", id: "modal-provider-link"%>
       </div>
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+$( document ).ready(function() {
+  $(".sign_in_modal").click(function(e){
+    var signin_path = '/auth/facebook?origin=' + e.target.href;
+    alert(signin_path);
+    $("#modal-provider-link").attr("href", signin_path);
+  });
+});
+</script>

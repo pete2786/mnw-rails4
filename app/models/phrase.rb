@@ -4,6 +4,7 @@ class Phrase < ActiveRecord::Base
   ABOVE_TEMP = %w{super_hot hot warm cool cold freezing}
   BELOW_TEMP = %w{very_cold below_zero way_below_zero}
   TEMPERATURES = %w{any above_freezing below_freezing} + ABOVE_TEMP + BELOW_TEMP
+  TIME_PERIODS = %w{any day night}
 
   has_many :phrase_votes
   belongs_to :stock_image
@@ -31,6 +32,7 @@ class Phrase < ActiveRecord::Base
   validates :condition, presence: true, inclusion: CONDITIONS
   validates :temperature, presence: true, inclusion: TEMPERATURES
   validates :season, presence: true, inclusion: SEASONS
+  validates :time_period, presence: true, inclusion: TIME_PERIODS
   validate :image_required
 
   def self.seasons
@@ -47,6 +49,10 @@ class Phrase < ActiveRecord::Base
 
   def self.temperatures
     TEMPERATURES.map{|s| [s.titleize, s]}
+  end
+
+  def self.time_periods
+    TIME_PERIODS.map{|s| [s.titleize, s]}
   end
   
   def phrase_vote_rep

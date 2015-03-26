@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   end
   resources :current_conditions  
   resource :sessions
-  resources :users, only: [:show]
+  resources :users, only: [:show, :edit, :update]
   resources :contributions, only: [:index]
   get "/auth/:provider/callback" => "sessions#create"
 end

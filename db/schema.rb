@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150322065121) do
+ActiveRecord::Schema.define(version: 20150325230709) do
 
   create_table "badges_sashes", force: :cascade do |t|
     t.integer  "badge_id"
@@ -100,6 +100,7 @@ ActiveRecord::Schema.define(version: 20150322065121) do
     t.datetime "updated_at",                     null: false
     t.integer  "user_id"
     t.boolean  "immortal",       default: false
+    t.string   "time_period",    default: "any"
   end
 
   create_table "sashes", force: :cascade do |t|
@@ -123,11 +124,12 @@ ActiveRecord::Schema.define(version: 20150322065121) do
     t.string   "image"
     t.string   "email"
     t.string   "token"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at",                                        null: false
+    t.datetime "updated_at",                                        null: false
     t.boolean  "admin",      default: false
     t.integer  "sash_id"
     t.integer  "level",      default: 0
+    t.string   "time_zone",  default: "Central Time (US & Canada)"
   end
 
 end

@@ -1,8 +1,9 @@
 <%= simple_form_for @phrase do |f| %>
   <p>Choose a condition, temperature or both. (Ex. Super Hot / Super Hot AND Rainy / Rainy)</p>
-  <%= f.input :condition, as: :select, collection: Phrase.conditions, include_blank: true%>
-  <%= f.input :temperature, as: :select, collection: Phrase.temperatures, include_blank: true%>
-  <%= f.input :season, as: :select, collection: Phrase.seasons, include_blank: true, :class => 'form-control' %>
+  <%= f.input :condition, as: :select, collection: Phrase.conditions, include_blank: true %>
+  <%= f.input :temperature, as: :select, collection: Phrase.temperatures, include_blank: true %>
+  <%= f.input :season, as: :select, collection: Phrase.seasons, include_blank: true %>
+  <%= f.input :time_period, as: :select, collection: Phrase.time_periods, include_blank: false%>
   <hr />
   <p>Choose a phrase and image to describe these conditions, preferrably humorously.</p>
   <%= f.input :phrase, :class => 'form-control' %>

@@ -1,0 +1,7 @@
+<h1>Settings for <%=@user.name%></h1>
+<%= simple_form_for @user do |f| %>
+  <%=f.input :name %>
+  <%=f.input :time_zone %>
+  <%=f.button :submit, class: "btn btn-default" %>
+<% end %>
+<hr />

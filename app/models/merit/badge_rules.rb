@@ -38,6 +38,14 @@ module Merit
         current_condition.user && current_condition.user.current_conditions.count == 1000
       end
 
+      grant_on 'current_conditions#create', badge: 'meteorologist', level: 5 do |current_condition|
+        current_condition.user && current_condition.user.current_conditions.count == 2500
+      end
+
+      grant_on 'current_conditions#create', badge: 'meteorologist', level: 6 do |current_condition|
+        current_condition.user && current_condition.user.current_conditions.count == 10000
+      end
+
       # Phrase badges
       grant_on 'phrases#create', badge: 'rookie', temporary: true do |phrase|
         phrase.user.phrases.count > 0 && phrase.user.phrases.count <= 10

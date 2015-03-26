@@ -94,3 +94,17 @@ Merit::Badge.create!(
   name: "judgemental",
   description: "You have voted on a phrase"
 )
+
+Merit::Badge.create!(
+  id: 14,
+  name: "meteorologist",
+  description: "Al Roker. You have checked the weather 2500 times.",
+  level: 5
+)
+
+Merit::Badge.create!(
+  id: 15,
+  name: "meteorologist",
+  description: "Mother Nature. You have checked the weather 10000 times.",
+  level: 6
+)
