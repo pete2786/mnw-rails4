@@ -11,6 +11,7 @@ class ProviderUser
   def create_or_update
     User.where(provider: provider, uid: uid).first_or_initialize.tap do |user|
       user.attributes = user_params
+      user.name = "#{first_name} #{last_name}" unless user.name
       user.save if user.changed?
     end
   end
@@ -18,7 +19,6 @@ class ProviderUser
   def user_params
     {
       email: email,
-      name: "#{first_name} #{last_name}",
       image: image,
       token: token
     }
