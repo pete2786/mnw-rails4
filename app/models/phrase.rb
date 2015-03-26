@@ -99,7 +99,7 @@ class Phrase < ActiveRecord::Base
   def swap_image
     if stock_image_id_changed?
       self.remove_custom_image!
-    elsif custom_image_changed?
+    elsif !custom_image.blank?
       self.stock_image_id = nil
     end
   end

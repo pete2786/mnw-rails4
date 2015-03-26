@@ -7,12 +7,12 @@ class UsersController <  ApplicationController
 
   def edit
     @user = User.find(params[:id])
-    authorize! :edit, @user
+    authorize! :update, @user
   end
 
   def update
     @user = User.find(params[:id])
-    authorize! :edit, @user
+    authorize! :update, @user
 
     if @user.update_attributes(user_params)
       redirect_to user_path(@user)

@@ -11,12 +11,12 @@ class Ability
       can :read, :all
 
       can :create, Phrase
-      can :edit, Phrase, user_id: user.id
+      can :update, Phrase, user_id: user.id
 
       can :create, PhraseVote
       can :destroy, PhraseVote, user_id: user.id
 
-      can :edit, User, id: user.id
+      can :update, User, id: user.id
       
     else # guest
       can :read, :all

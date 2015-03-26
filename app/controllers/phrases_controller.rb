@@ -24,7 +24,7 @@ class PhrasesController < ApplicationController
     if @phrase.update_attributes(phrase_params)
       redirect_to phrase_path(@phrase)
     else
-      render :new
+      render :edit
     end
   end
 
@@ -35,6 +35,6 @@ class PhrasesController < ApplicationController
 
   def phrase_params
     params.require(:phrase).permit(:season, :phrase, :stock_image_id, :image, :remote_custom_image_url, :custom_image_cache,
-                                   :condition, :temperature, :custom_image)
+                                   :condition, :temperature, :custom_image, :time_period)
   end
 end
