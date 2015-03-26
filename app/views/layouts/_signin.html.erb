@@ -20,7 +20,6 @@
 $( document ).ready(function() {
   $(".sign_in_modal").click(function(e){
     var signin_path = '/auth/facebook?origin=' + e.target.href;
-    alert(signin_path);
     $("#modal-provider-link").attr("href", signin_path);
   });
 });
