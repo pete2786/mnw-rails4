@@ -14,9 +14,10 @@ class Phrase < ActiveRecord::Base
 
   mount_uploader :custom_image, ImageUploader
 
-  scope :with_season, ->(s){where("season = ? or season = 'any'", s)}
-  scope :with_temperature, ->(t){where("temperature = ? or temperature = ?", t, generic_temp(t))}
-  scope :with_condition, ->(c){where(condition: c)}
+  scope :with_season, ->(s) {where("season = ? or season = 'any'", s)}
+  scope :with_temperature, ->(t) {where("temperature = ? or temperature = ?", t, generic_temp(t))}
+  scope :with_condition, ->(c) {where(condition: c)}
+  scope :with_time_period, ->(t) {where("time_period = ? or time_period = 'any'", t)}
   scope :any_temperature, ->{where(temperature: 'any')}
   scope :any_condition, ->{where(condition: 'any')}
   scope :defaults, ->{ any_temperature.any_condition.with_season('any') }

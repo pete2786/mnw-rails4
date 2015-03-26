@@ -3,7 +3,7 @@
   <%= f.input :condition, as: :select, collection: Phrase.conditions, include_blank: true %>
   <%= f.input :temperature, as: :select, collection: Phrase.temperatures, include_blank: true %>
   <%= f.input :season, as: :select, collection: Phrase.seasons, include_blank: true %>
-  <%= f.input :time_period, as: :select, collection: Phrase.time_periods, include_blank: false%>
+  <%= f.input :time_period, as: :select, collection: Phrase.time_periods, include_blank: false, label: "Time of day"%>
   <hr />
   <p>Choose a phrase and image to describe these conditions, preferrably humorously.</p>
   <%= f.input :phrase, :class => 'form-control' %>

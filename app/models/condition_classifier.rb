@@ -16,7 +16,8 @@ class ConditionClassifier
     {
       condition: condition,
       temperature: temperature_range,
-      season: season
+      season: season,
+      time_period: time_period
     }
   end
 
@@ -34,6 +35,18 @@ class ConditionClassifier
 
   def freezing
     @general_temperature ||= temperature > 32 ? 'above_freezing' : 'below_freezing'
+  end
+
+  def time_period
+    hour = Time.now.hour
+    case season
+    when 'winter'
+      hour.between?(8, 17) ? 'day' : 'night'
+    when 'summer'
+      hour.between?(6, 21) ? 'day' : 'night'
+    else 
+      hour.between?(7, 19) ? 'day' : 'night'
+    end
   end
 
   # http://bugs.openweathermap.org/projects/api/wiki/Weather_Condition_Codes

@@ -45,9 +45,9 @@ class CurrentCondition < ActiveRecord::Base
     return Phrase.defaults.sample if condition == nil
     cc = ConditionClassifier.new(condition)
 
-    return  Phrase.with_season(cc.season).with_condition(cc.condition).with_temperature(cc.temperature_range).sample ||
-            Phrase.with_season(cc.season).with_condition(cc.condition).any_temperature.sample ||
-            Phrase.with_season(cc.season).any_condition.with_temperature(cc.temperature_range).sample || 
+    return  Phrase.with_time_period(cc.time_period).with_season(cc.season).with_condition(cc.condition).with_temperature(cc.temperature_range).sample ||
+            Phrase.with_time_period(cc.time_period).with_season(cc.season).with_condition(cc.condition).any_temperature.sample ||
+            Phrase.with_time_period(cc.time_period).with_season(cc.season).any_condition.with_temperature(cc.temperature_range).sample || 
             Phrase.defaults.sample
   end
 
