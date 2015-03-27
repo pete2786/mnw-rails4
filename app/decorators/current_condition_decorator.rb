@@ -6,6 +6,10 @@ class CurrentConditionDecorator < Draper::Decorator
     "#{description.capitalize}...#{phrase_phrase}"
   end
 
+  def image
+    phrase.image.url
+  end
+
   def url
     Rails.application.routes.url_helpers.current_condition_url(id)
   end

@@ -4,7 +4,8 @@ module Api
       decorates_assigned :current_condition
 
       def create
-        @current_condition = CurrentCondition.with(condition_params)
+        byebug
+        @current_condition = CurrentCondition.with(params)
         @current_condition.save
         respond_with(@current_condition)
       end
@@ -12,16 +13,6 @@ module Api
       def show
         @current_condition = CurrentCondition.find(params[:id])
         respond_with(@current_condition)
-      end
-
-      def condition_params
-        {
-          current_condition: {
-            location: params[:location],
-          },
-          lat: params[:lat],
-          long: params[:long],
-        }
       end
     end
   end

@@ -7,8 +7,5 @@ attribute :description
 attribute :lat
 attribute :long
 attribute :url
-
-child :phrase do
-  attribute :phrase
-  attribute :image
-end
+attribute :text
+attribute :image
