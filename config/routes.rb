@@ -14,4 +14,10 @@ Rails.application.routes.draw do
   resources :users, only: [:show, :edit, :update]
   resources :contributions, only: [:index]
   get "/auth/:provider/callback" => "sessions#create"
+
+  namespace :api do
+    namespace :v1 do
+      resources :current_conditions
+    end
+  end
 end

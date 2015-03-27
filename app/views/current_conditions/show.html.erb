@@ -7,7 +7,7 @@
     <div class="content-container">
       <h1 id="location"><%=@current_condition.location%></h1>
       <p id="temp"><span id="value"><%=@current_condition.temperature%></span>&deg;</p>
-      <p id="condition"><%=@current_condition.description.capitalize%>...<%=@current_condition.phrase.phrase%></p>
+      <p id="condition"><%=@current_condition.text%></p>
       <div id="phrase_vote_container">
         <%=render partial: "phrase_votes/phrase_vote", locals: { phrase: @current_condition.phrase }%>
       </div>

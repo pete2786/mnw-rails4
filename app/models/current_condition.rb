@@ -10,7 +10,7 @@ class CurrentCondition < ActiveRecord::Base
   delegate :name, :temp_farenheit, :icon, :description, :code, :humidity, :lat, :long, :wind, :to_hash,
             to: :condition, allow_nil: true, prefix: true
 
-  delegate :user, to: :phrase, prefix: true
+  delegate :user, :phrase, :image, to: :phrase, prefix: true
   validates :location, :temperature, :icon, :description, :code, :humidity, presence: true
 
   scope :recent, ->{ order('id desc').limit(5) }
