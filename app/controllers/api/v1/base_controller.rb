@@ -9,7 +9,7 @@ module Api
       around_filter :set_time_zone
 
       rescue_from ActionController::ParameterMissing, CanCan::AccessDenied do |e|
-        rescue_error status: :bad_request, messages: e.message
+        rescue_error status: 422, messages: e.message
       end
 
       rescue_from ActiveRecord::RecordNotFound do |e|
@@ -20,7 +20,7 @@ module Api
         messages = ([options[:messages]] + [options[:message]]).flatten.compact
         @error = [options[:status], *messages]
         
-        render layout: 'api/v1/layouts/application', :locals => { :error => @error }
+        render layout: 'api/v1/layouts/application', locals: { error: @error }, template: 'api/v1/layouts/error'
       end
 
       def set_time_zone(&block)

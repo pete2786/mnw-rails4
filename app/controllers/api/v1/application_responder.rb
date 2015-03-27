@@ -10,7 +10,7 @@ module Api
           render_view
         end
       rescue ActionView::MissingTemplate => e
-        api_behavior(e)
+        rescue_error(status: 500, message: e.message)
       end
 
       def display_errors
