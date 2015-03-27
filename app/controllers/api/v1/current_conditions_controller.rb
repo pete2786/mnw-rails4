@@ -4,7 +4,6 @@ module Api
       decorates_assigned :current_condition
 
       def create
-        byebug
         @current_condition = CurrentCondition.with(params)
         @current_condition.save
         respond_with(@current_condition)
