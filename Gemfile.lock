@@ -1,5 +1,5 @@
 GIT
-  remote: git@github.com:coderhs/ruby_open_weather_map.git
+  remote: git@github.com:pete2786/ruby_open_weather_map.git
   revision: 058ea52dd5ea86dc2a45e3bf199ced8e980b67ea
   specs:
     open-weather (0.10.0)
