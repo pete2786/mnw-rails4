@@ -1,5 +1,5 @@
-== Minnesota Weather
+== Weather Clever
 
-* Want to make the Minnesota Weather app better. Making a Rails 4 app instead of Rails API + JQuery Mobile front end to get something out there, then hope to add an API back in to the mix.
+* Want to make the Weather Clever app better. Making a Rails 4 app instead of Rails API + JQuery Mobile front end to get something out there, then hope to add an API back in to the mix.
 
-mnweather.tandemdd.com
+weatherclever.com

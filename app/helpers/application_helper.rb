@@ -28,9 +28,13 @@ module ApplicationHelper
     content_for(:title) { page_title.html_safe }
   end
 
+  def app_name
+    Rails.application.secrets.app_name
+  end
+
   def conditions(current)
     content_for(:title) { "#{current.location}: #{current.temperature}&deg;".html_safe }
-    content_for(:description) { "#{current.text} Find more humor in weather at Minnesota weather." }
+    content_for(:description) { "#{current.text} Find more humor in weather at #{app_name}." }
     content_for(:og_image) { current.phrase.image.url }
     content_for(:og_url) { current_condition_url(current) }
   end

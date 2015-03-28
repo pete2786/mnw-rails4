@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta name="description" content="<%= (content_for?(:description) ? yield(:description) : 'The Minnesota Weather app provides the current weather, a (debately) funny response and a condition specific image. Try it out and share it with your friends!').html_safe %>">
+    <meta name="description" content='<%= (content_for?(:description) ? yield(:description) : "The #{app_name} app provides the current weather, a (debately) funny response and a condition specific image. Try it out and share it with your friends!").html_safe %>'>
     <meta name="keywords" content="Weather,Humor,Funny,Conditions,Cold,Minnesota,UffDa">
     <meta name="author" content="David E H Peterson">
     <meta name="format-detection" content="telephone=no" />
     <meta property="og:image" content="<%=(content_for?(:og_image) ? yield(:og_image) : asset_path('apple-icon-144x144.png'))%>" />
-    <meta property="og:title" content="<%= (content_for?(:title) ? "#{yield(:title)} - " : "").html_safe %>Minnesota Weather" />
+    <meta property="og:title" content="<%= (content_for?(:title) ? "#{yield(:title)} - " : "").html_safe %><%=app_name%>" />
     <meta property="og:type" content="website" />    
-    <meta property="og:description" content="<%= (content_for?(:description) ? yield(:description) : 'The Minnesota Weather app provides the current weather, a (debately) funny response and a condition specific image. Try it out and share it with your friends!').html_safe %>" />
-    <meta property="og:url" content="<%= (content_for?(:og_url) ? yield(:og_url) : 'http://mnweather.tandemdd.com/').html_safe%>" /> 
+    <meta property="og:description" content='<%= (content_for?(:description) ? yield(:description) : "The #{app_name} app provides the current weather, a (debately) funny response and a condition specific image. Try it out and share it with your friends!").html_safe %>'>
+    <meta property="og:url" content="<%= (content_for?(:og_url) ? yield(:og_url) : 'http://www.weatherclever.com/').html_safe%>" /> 
     <meta property="fb:admins" content="13900152" /> 
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= (content_for?(:title) ? "#{yield(:title)} - " : "").html_safe %>Minnesota Weather</title>
+    <title><%= (content_for?(:title) ? "#{yield(:title)} - " : "").html_safe %><%=app_name%></title>
     <%= csrf_meta_tags %>
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
@@ -63,7 +63,7 @@
 
       <footer>
         <p>
-          &copy; Minnesota Weather <%=Date.today.year%> |
+          &copy; <%=app_name%> <%=Date.today.year%> |
           <%=link_to "Privacy", privacy_path%> |
           <%=link_to "Contact Us", "emailto: weatherminnesota@gmail.com"%> |
           <strong><%=link_to "What's new?", latest_path%></strong>
