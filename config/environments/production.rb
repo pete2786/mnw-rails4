@@ -77,5 +77,19 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  Rails.application.routes.default_url_options[:host] = 'http://mnweather.tandemdd.com'
+  Rails.application.routes.default_url_options[:host] = Rails.application.secrets.host
+  config.action_mailer.default_url_options = { :host => Rails.application.secrets.host }
+  # ActionMailer Config
+  # Setup for production - deliveries, no errors raised
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.default :charset => "utf-8"
+
+  config.action_mailer.smtp_settings = {
+    :address   => Rails.application.secrets.smtp_provider,
+    :port      => Rails.application.secrets.smtp_port,
+    :user_name => Rails.application.secrets.smtp_user,
+    :password  => Rails.application.secrets.smtp_pass
+  }
 end
