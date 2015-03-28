@@ -19,6 +19,11 @@
         <%=link_to_or_signin_block(new_phrase_path(phrase: @current_condition.phrase_params), class: "btn btn-default btn") do%>
           <span class="glyphicon glyphicon-plus"></span> Add Phrase 
         <% end %>
+        <% if current_user %>
+          <%=link_to(current_condition_save_location_path(@current_condition), class: "btn btn-default btn", method: :post, remote: true) do%>
+            <span class="glyphicon glyphicon-star"></span> Favorite Location
+          <% end %>
+        <% end %>
       </p>
       <p><small>As of: <%=l @current_condition.created_at%>, Submitted by: <%=link_to_or_siginin(@current_condition.phrase.user_name, user_path(@current_condition.phrase_user))%> (<%=@current_condition.phrase_user.phrase_rep_name%>)
       </small></p>

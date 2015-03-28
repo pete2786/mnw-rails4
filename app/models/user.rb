@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   has_many :phrases
   has_many :current_conditions
   has_many :phrase_votes, through: :phrases
+  has_many :saved_locations
   has_merit
 
   scope :top, ->(n){ joins('LEFT JOIN merit_scores ON merit_scores.sash_id = users.sash_id ' \
