@@ -8,19 +8,29 @@
       <div class="btn-group" role="group">
         <button type="button" class="btn btn-default" id="get_weather">Get Weather</button>
         <button type="button" class="btn btn-default" id="my_location">My Location</button>
-        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-          <span class="glyphicon glyphicon-star"></span> Favorites <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu" role="menu">
-          <% if current_user%>
-            <% current_user.saved_locations.each do|l|%>
-            <li><%=link_to l.name, current_conditions_path(lat: l.lat, long: l.long), method: :post%></li>
-            <%end%>
-          <% else %>
-            <li><a href="#" data-toggle='modal' data-target='#sign_in_modal'>
-              Sign in to use favorites</a></li>
-          <% end %>
-        </ul>
+        <div class="btn-group">
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+            <span class="glyphicon glyphicon-star"></span> Favorites <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" role="menu">
+            <% if current_user%>
+              <% if current_user.saved_locations %>
+                <% current_user.saved_locations.each do|l|%>
+                <li>
+                  <%=link_to l.name, current_conditions_path(lat: l.lat, long: l.long), method: :post%>
+                </li>
+                <li class="divider"></li>
+                <li><%=link_to "Edit Favorites", user_path(current_user)%></li>
+                <%end%>
+              <% else %>
+                <li>None</li>
+              <% end %>
+            <% else %>
+              <li><a href="#" data-toggle='modal' data-target='#sign_in_modal'>
+                Sign in to use favorites</a></li>
+            <% end %>
+          </ul>
+        </div>
       </div>
     <%end%>
 
