@@ -1,0 +1,9 @@
+<p style="Margin-top: 0;color: #565656;font-family: Georgia,serif;font-size: 16px;line-height: 25px;Margin-bottom: 25px">
+  Hi <%=@user.name%>,
+</p>
+<p style="Margin-top: 0;color: #565656;font-family: Georgia,serif;font-size: 16px;line-height: 25px;Margin-bottom: 25px">
+  Welcome to the <%=app_name%> community! Now that you have created an <%=link_to "account", user_url(@user)%>, you can begin submitting and voting on phrases and earn points and badges to build your <%=link_to "reputation", reputation_url%>!
+</p>
+<p style="Margin-top: 0;color: #565656;font-family: Georgia,serif;font-size: 16px;line-height: 25px;Margin-bottom: 25px">
+  The easiest way to start earning points to by <%=link_to "looking up the weather", root_url%>. Be sure and login, then just lookup the weather. You can see your points and badges start to accumulate up on your <%=link_to "profile", user_url(@user)%> page. Be sure and check the <%=link_to "leaderboard", contributions_url%> to see if you have risen to the top of the <%=app_name%> community. Have fun!
+</p>

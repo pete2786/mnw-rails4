@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
                     }
 
   after_update :process_badges
+  after_create :send_welcome_email
 
   def process_badges
     self.add_badge(1) unless Merit::Badge.find(1).users.include?(self) && self.id <= 100
@@ -26,5 +27,9 @@ class User < ActiveRecord::Base
 
   def badge_names
     @badge_names ||= badges.map(&:name)
+  end
+
+  def send_welcome_email
+    UserMailer.welcome_email(self).deliver_now
   end
 end
