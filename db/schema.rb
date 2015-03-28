@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150325230709) do
+ActiveRecord::Schema.define(version: 20150328152022) do
 
   create_table "badges_sashes", force: :cascade do |t|
     t.integer  "badge_id"
@@ -31,14 +31,16 @@ ActiveRecord::Schema.define(version: 20150325230709) do
     t.string   "icon"
     t.string   "description"
     t.string   "code"
-    t.decimal  "humidity",     precision: 15, scale: 10
-    t.decimal  "lat",          precision: 15, scale: 10
-    t.decimal  "long",         precision: 15, scale: 10
-    t.decimal  "wind",         precision: 15, scale: 10
+    t.decimal  "humidity",         precision: 15, scale: 10
+    t.decimal  "lat",              precision: 15, scale: 10
+    t.decimal  "long",             precision: 15, scale: 10
+    t.decimal  "wind",             precision: 15, scale: 10
     t.text     "raw_response"
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
+    t.datetime "created_at",                                                null: false
+    t.datetime "updated_at",                                                null: false
     t.integer  "user_id"
+    t.text     "raw_forecast"
+    t.boolean  "forecast_pending",                           default: true
   end
 
   add_index "current_conditions", ["phrase_id"], name: "index_current_conditions_on_phrase_id"

@@ -1,4 +1,5 @@
 require 'condition'
+require 'open_weather'
 
 class CurrentCondition < ActiveRecord::Base
   attr_accessor :condition
@@ -49,6 +50,16 @@ class CurrentCondition < ActiveRecord::Base
             Phrase.with_time_period(cc.time_period).with_season(cc.season).with_condition(cc.condition).any_temperature.sample ||
             Phrase.with_time_period(cc.time_period).with_season(cc.season).any_condition.with_temperature(cc.temperature_range).sample || 
             Phrase.defaults.sample
+  end
+
+  def fetch_forecast
+    return unless forecast_pending
+
+    update_attributes(raw_forecast: OpenWeather::ForecastDaily.geocode(lat, long, cnt: 6), forecast_pending: false)
+  end
+
+  def forecast
+    @forecast ||= (raw_forecast ? Hashie::Mash.new(eval(raw_forecast)) : nil)
   end
 
   def phrase_params

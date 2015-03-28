@@ -1,3 +1,10 @@
+GIT
+  remote: git@github.com:coderhs/ruby_open_weather_map.git
+  revision: 058ea52dd5ea86dc2a45e3bf199ced8e980b67ea
+  specs:
+    open-weather (0.10.0)
+      json
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -187,8 +194,6 @@ GEM
       multi_json (~> 1.3)
       oauth2 (~> 1.0)
       omniauth (~> 1.2)
-    open-weather (0.10.0)
-      json
     pry (0.10.1)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -320,7 +325,7 @@ DEPENDENCIES
   oj
   omniauth-facebook
   omniauth-google-oauth2
-  open-weather
+  open-weather!
   pry-rails
   rabl
   rails (= 4.2.0)

@@ -6,6 +6,7 @@ module Api
 
       def create
         @current_condition = CurrentCondition.with(params)
+        @current_condition.forecast_pending = false
         @current_condition.save
         respond_with(@current_condition)
       end
@@ -13,6 +14,11 @@ module Api
       def show
         @current_condition = CurrentCondition.find(params[:id])
         respond_with(@current_condition)
+      end
+
+      def forecast
+        @current_condition = CurrentCondition.find(params[:current_condition_id])
+        @current_condition.fetch_forecast
       end
 
       def check_params

@@ -33,7 +33,7 @@ gem 'rolify'
 gem 'cancancan', '~> 1.10'
 
 # Phrase and weather management
-gem 'open-weather'
+gem 'open-weather', git: 'git@github.com:coderhs/ruby_open_weather_map.git'
 gem "mini_magick"
 gem 'carrierwave'
 gem 'carrierwave-aws'

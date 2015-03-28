@@ -20,11 +20,89 @@
           <span class="glyphicon glyphicon-plus"></span> Add Phrase 
         <% end %>
       </p>
-      <p><small>As of: <%=l @current_condition.created_at%>
+      <p><small>As of: <%=l @current_condition.created_at%>, Submitted by: <%=link_to_or_siginin(@current_condition.phrase.user_name, user_path(@current_condition.phrase_user))%> (<%=@current_condition.phrase_user.phrase_rep_name%>)
       </small></p>
-      <p><small>Submitted by: <%=link_to_or_siginin(@current_condition.phrase.user_name, user_path(@current_condition.phrase_user))%> (<%=@current_condition.phrase_user.phrase_rep_name%>)</small></p>
       <div class="fb-like" data-href="<%=current_condition_path(@current_condition)%>" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
     </div>
 
     <div class="row"><p></p></div>
+    <div class="row">
+      <div class="col-lg-2">
+        <div class="content-container">
+          <h4><%=@current_condition.created_at.strftime('%m/%d')%></h4>
+          <h3><span id="forecast-temp-1">-&deg; / -&deg;</span></h3>
+          <p><span id="forecast-icon-1">-</span></p>
+        </div>
+      </div>
+      <div class="col-lg-2">
+        <div class="content-container">
+          <h4><%=@current_condition.created_at.since(1.day).strftime('%m/%d')%></h4>
+          <h3><span id="forecast-temp-2">-&deg; / -&deg;</span></h3>
+          <p><span id="forecast-icon-2">-</span></p>
+        </div>
+      </div>
+      <div class="col-lg-2">
+        <div class="content-container">
+          <h4><%=@current_condition.created_at.since(2.day).strftime('%m/%d')%></h4>
+          <h3><span id="forecast-temp-3">-&deg; / -&deg;</span></h3>
+          <p><span id="forecast-icon-3">-</span></p>
+        </div>
+      </div>
+      <div class="col-lg-2">
+        <div class="content-container">
+          <h4><%=@current_condition.created_at.since(3.day).strftime('%m/%d')%></h4>
+          <h3><span id="forecast-temp-4">-&deg; / -&deg;</span></h3>
+          <p><span id="forecast-icon-4">-</span></p>
+        </div>
+      </div>
+      <div class="col-lg-2">
+        <div class="content-container">
+          <h4><%=@current_condition.created_at.since(4.day).strftime('%m/%d')%></h4>
+          <h3><span id="forecast-temp-5">-&deg; / -&deg;</span></h3>
+          <p><span id="forecast-icon-5">-</span></p>
+        </div>
+      </div>
+      <div class="col-lg-2">
+        <div class="content-container">
+        <h4><%=@current_condition.created_at.since(5.day).strftime('%m/%d')%></h4>
+        <h3><span id="forecast-temp-6">-&deg; / -&deg;</span></h3>
+        <p ><span id="forecast-icon-6">-</span></p>
+      </div>
+    </div>
+  </div>
 </div>
+
+<script type="text/javascript">
+var the_data;
+$(function() {
+  $.ajax({
+    dataType: "json",
+    url: '/api/v1/current_conditions/442/forecast',
+    success: forecast_success,
+    error: forecast_error
+  });
+});
+
+function forecast_success(data){
+  var forecast = data.result.current_condition.forecast;
+  the_data = forecast;
+  jQuery.each(forecast.list, function(index, v){
+    // temp.day, temp.night, weather.icon, weather.main
+    var day = index + 1;
+    var temp_span = "span#forecast-temp-" + day;
+    var icon_span = "span#forecast-icon-" + day;
+    var base_url = 'http://openweathermap.org/img/w/'
+
+    $(temp_span).replaceWith(to_farenheit(v.temp.day) + "&deg; / " + to_farenheit(v.temp.night) + "&deg;");
+    $(icon_span).replaceWith('<img src="'+ base_url + v.weather[0].icon + '.png' +'"></img>');
+  });
+}
+
+function to_farenheit(t){
+  return Math.round((t * (9.0/5))-459.67);
+}
+
+function forecast_error(data){
+
+}
+</script>
