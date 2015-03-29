@@ -13,8 +13,8 @@
     <meta property="fb:admins" content="13900152" /> 
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta itemprop="thumbnailUrl" content="<%=(content_for?(:og_image) ? yield(:og_image) : asset_path('apple-icon-144x144.png'))%>"/><meta itemprop="thumbnailHeight" content="150"/>
-    <meta itemprop="thumbnailWidth" content="150"/>
+    <meta itemprop="thumbnailUrl" content="<%=(content_for?(:thumb) ? yield(:thumb) : asset_path('apple-icon-144x144.png'))%>"/><meta itemprop="thumbnailHeight" content="50"/>
+    <meta itemprop="thumbnailWidth" content="50"/>
     <meta itemprop="image" content="<%=(content_for?(:og_image) ? yield(:og_image) : asset_path('apple-icon-144x144.png'))%>"/>
     <title><%= (content_for?(:title) ? "#{yield(:title)} - " : "").html_safe %><%=app_name%></title>
     <%= csrf_meta_tags %>
