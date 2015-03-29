@@ -6,13 +6,18 @@
 <% end%>
 
 <h2>Badges</h2>
-<ul>
-<% @user.badges.each do |badge| %>
-  <li><%= badge_image(badge)%> <%= badge.name.capitalize %> <%if badge.level%>(Level <%=badge.level%>)<%end%> - <%= badge.description %>
-  </li>
+<% @user.badges_per_row(2) do |badges| %>
+  <div class="row">
+    <% badges.each do |badge| %>
+    <div class="col-xs-6">
+      <div class="well well-small">
+        <p><%= badge_image(badge)%> <%= badge.name.capitalize %> <%if badge.level%>(Level <%=badge.level%>)<%end%> </p>
+        <p><small><%= badge.description %></small></p>
+      </div>
+    </div>
+    <% end %>
+  </div>
 <% end %>
-</ul>
-
 <% if @user == current_user %>
 <h2>Cancel my account</h2>
 <p>Please <%=link_to "contact us", "emailto: weatherminnesota@gmail.com"%> if you would like to cancel your account.</p>
