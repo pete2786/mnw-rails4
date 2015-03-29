@@ -14,7 +14,7 @@ class PhrasesController < ApplicationController
     @phrase.user = current_user
     
     if @phrase.save
-      redirect_to phrase_path(@phrase)
+      redirect_to edit_phrase_path(@phrase)
     else
       render :new
     end

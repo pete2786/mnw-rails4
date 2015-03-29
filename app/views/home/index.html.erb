@@ -14,7 +14,7 @@
           </button>
           <ul class="dropdown-menu" role="menu">
             <% if current_user%>
-              <% if current_user.saved_locations %>
+              <% if !current_user.saved_locations.blank? %>
                 <% current_user.saved_locations.each do|l|%>
                 <li>
                   <%=link_to l.name, current_conditions_path(lat: l.lat, long: l.long), method: :post%>

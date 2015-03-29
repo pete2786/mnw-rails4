@@ -1,4 +1,6 @@
 class Phrase < ActiveRecord::Base
+  include ImageHelper
+
   SEASONS = %w{any winter spring summer fall}
   CONDITIONS = %w{any clear cloudy disaster drizzle fog overcast partially_cloudy rain sleet snowy thunder humid windy}
   ABOVE_TEMP = %w{super_hot hot warm cool cold freezing}
@@ -21,6 +23,7 @@ class Phrase < ActiveRecord::Base
   scope :any_temperature, ->{where(temperature: 'any')}
   scope :any_condition, ->{where(condition: 'any')}
   scope :defaults, ->{ any_temperature.any_condition.with_season('any') }
+  scope :complete, ->{ where(status: 'complete') }
   scope :top, ->(n){  joins("LEFT JOIN phrase_votes up ON up.phrase_id = phrases.id and up.vote_type = 'Up'")
                       .joins("LEFT JOIN phrase_votes down ON down.phrase_id = phrases.id  and down.vote_type = 'Down'")
                       .group('phrases.id').order('COUNT(up.id) - COUNT(down.id) DESC')
@@ -28,13 +31,15 @@ class Phrase < ActiveRecord::Base
                     }
 
   before_validation :swap_image, except: :create
+  after_create :set_status_image
+  after_save :set_status_complete, if: "!no_image?"
 
   validates :phrase, presence: true, length: { maximum: 250 }
   validates :condition, presence: true, inclusion: CONDITIONS
   validates :temperature, presence: true, inclusion: TEMPERATURES
   validates :season, presence: true, inclusion: SEASONS
   validates :time_period, presence: true, inclusion: TIME_PERIODS
-  validate :image_required
+  validate :image_required, if: :image_required?
 
   def self.seasons
     SEASONS.map{|s| [s.titleize, s]}
@@ -76,44 +81,16 @@ class Phrase < ActiveRecord::Base
     phrase_votes.by_user(user).first
   end
 
-  def image
-    has_stock_image? ? stock_image.image : custom_image
+  def image_required?
+    status != 'phrase'
   end
 
-  def thumb
-    has_stock_image? ? stock_image.image.thumb : custom_image.thumb
+  def set_status_image
+    self.update_column(:status, 'image')
   end
 
-  def has_stock_image?
-    image_type == :stock
-  end
-
-  def has_custom_image?
-    image_type == :custom
-  end
-
-  def image_type
-    (new_record? || !stock_image_id.blank?) ? :stock : :custom
-  end
-
-  def swap_image
-    if stock_image_id_changed?
-      self.remove_custom_image!
-    elsif !custom_image.blank?
-      self.stock_image_id = nil
-    end
-  end
-
-  def no_image?
-    stock_image_id.blank? && !custom_image? && remote_custom_image_url.blank?
-  end
-
-  def double_image?
-    !stock_image_id.blank? && (custom_image? || !remote_custom_image_url.blank?)
-  end
-
-  def image_required  
-    errors[:image] << "You must choose a stock image or upload a custom image" if no_image? || double_image?
+  def set_status_complete
+    self.update_column(:status, 'complete')
   end
 
 end

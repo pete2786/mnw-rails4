@@ -11,6 +11,8 @@
       <th><%= model_class.human_attribute_name(:season) %></th>
       <th><%= model_class.human_attribute_name(:condition) %></th>
       <th><%= model_class.human_attribute_name(:temperature) %></th>
+      <th><%= model_class.human_attribute_name(:time_period) %></th>
+      <th><%= model_class.human_attribute_name(:complete) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
@@ -22,6 +24,12 @@
         <td><%= phrase.season %></td>
         <td><%= phrase.condition %></td>
         <td><%= phrase.temperature %></td>
+        <td><%= phrase.time_period %></td>
+        <td>
+          <%if phrase.status == 'complete' %>
+          <span class="glyphicon glyphicon-ok"></span>
+          <% end %>
+        </td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_phrase_path(phrase), :class => 'btn btn-default btn-xs' %>
