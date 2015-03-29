@@ -16,6 +16,7 @@
     <meta itemprop="thumbnailUrl" content="<%=(content_for?(:thumb) ? yield(:thumb) : asset_path('apple-icon-144x144.png'))%>"/><meta itemprop="thumbnailHeight" content="50"/>
     <meta itemprop="thumbnailWidth" content="50"/>
     <meta itemprop="image" content="<%=(content_for?(:og_image) ? yield(:og_image) : asset_path('apple-icon-144x144.png'))%>"/>
+    <meta name="twitter:image:src" content="<%=(content_for?(:thumb) ? yield(:thumb) : asset_path('apple-icon-144x144.png'))%>">
     <title><%= (content_for?(:title) ? "#{yield(:title)} - " : "").html_safe %><%=app_name%></title>
     <%= csrf_meta_tags %>
 
