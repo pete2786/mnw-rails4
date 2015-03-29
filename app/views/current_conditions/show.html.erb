@@ -79,7 +79,7 @@
 
                 <div class="col-xs-6">
                     <div class="content-container">
-                    <h4><%=@current_condition.created_at.since(1.day).strftime('%m/%d')%></h4>
+                    <h4><%=@current_condition.created_at.since(3.day).strftime('%m/%d')%></h4>
                     <h3><span id="forecast-temp-4">-&deg; / -&deg;</span></h3>
                     <p><span id="forecast-icon-4">-</span></p>
                   </div>
@@ -91,7 +91,7 @@
               <div class="row">
                 <div class="col-xs-6">
                   <div class="content-container">
-                    <h4><%=@current_condition.created_at.strftime('%m/%d')%></h4>
+                    <h4><%=@current_condition.created_at.since(4.day).strftime('%m/%d')%></h4>
                     <h3><span id="forecast-temp-5">-&deg; / -&deg;</span></h3>
                     <p><span id="forecast-icon-5">-</span></p>
                   </div>
@@ -99,7 +99,7 @@
 
                 <div class="col-xs-6">
                     <div class="content-container">
-                    <h4><%=@current_condition.created_at.since(1.day).strftime('%m/%d')%></h4>
+                    <h4><%=@current_condition.created_at.since(5.day).strftime('%m/%d')%></h4>
                     <h3><span id="forecast-temp-6">-&deg; / -&deg;</span></h3>
                     <p><span id="forecast-icon-6">-</span></p>
                   </div>
