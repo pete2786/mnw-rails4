@@ -1,6 +1,9 @@
 <% conditions(@current_condition)%>
 
 <div class="row">
+  <div style="display: none;">
+    <%=image_tag @current_condition.phrase.image, alt: "phrase image"%>
+  </div>
   <div id="conditions" class="col-lg-12" style="background: url(<%=@current_condition.phrase.image%>) no-repeat; background-size: 100% 100%;">
     <div class="row"><p></p></div>
 
