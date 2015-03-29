@@ -34,7 +34,85 @@
     </div>
 
     <div class="row"><p></p></div>
-    <div class="row">
+
+    <div class="row hidden-lg">
+      <div class="col-xs-12">
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+          <!-- Indicators -->
+          <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+          </ol>
+
+          <!-- Wrapper for slides -->
+          <div class="carousel-inner" role="listbox">
+            <div class="item active">
+              <div class="row">
+                <div class="col-xs-6">
+                  <div class="content-container">
+                    <h4><%=@current_condition.created_at.strftime('%m/%d')%></h4>
+                    <h3><span id="forecast-temp-1">-&deg; / -&deg;</span></h3>
+                    <p><span id="forecast-icon-1">-</span></p>
+                  </div>
+                </div>
+
+                <div class="col-xs-6">
+                  <div class="content-container">
+                    <h4><%=@current_condition.created_at.since(1.day).strftime('%m/%d')%></h4>
+                    <h3><span id="forecast-temp-2">-&deg; / -&deg;</span></h3>
+                    <p><span id="forecast-icon-2">-</span></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="item">
+              <div class="row">
+                <div class="col-xs-6">
+                  <div class="content-container">
+                  <h4><%=@current_condition.created_at.since(2.day).strftime('%m/%d')%></h4>
+                  <h3><span id="forecast-temp-3">-&deg; / -&deg;</span></h3>
+                  <p><span id="forecast-icon-3">-</span></p>
+                  </div>
+                </div>
+
+                <div class="col-xs-6">
+                    <div class="content-container">
+                    <h4><%=@current_condition.created_at.since(1.day).strftime('%m/%d')%></h4>
+                    <h3><span id="forecast-temp-4">-&deg; / -&deg;</span></h3>
+                    <p><span id="forecast-icon-4">-</span></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="item">
+              <div class="row">
+                <div class="col-xs-6">
+                  <div class="content-container">
+                    <h4><%=@current_condition.created_at.strftime('%m/%d')%></h4>
+                    <h3><span id="forecast-temp-5">-&deg; / -&deg;</span></h3>
+                    <p><span id="forecast-icon-5">-</span></p>
+                  </div>
+                </div>
+
+                <div class="col-xs-6">
+                    <div class="content-container">
+                    <h4><%=@current_condition.created_at.since(1.day).strftime('%m/%d')%></h4>
+                    <h3><span id="forecast-temp-6">-&deg; / -&deg;</span></h3>
+                    <p><span id="forecast-icon-6">-</span></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row visible-lg">
       <div class="col-lg-2">
         <div class="content-container">
           <h4><%=@current_condition.created_at.strftime('%m/%d')%></h4>
@@ -116,4 +194,16 @@ function to_farenheit(t){
 function forecast_error(data){
 
 }
+
+$(document).ready(function() {  
+  $(".carousel-inner").swipe( {
+    swipeLeft:function(event, direction, distance, duration, fingerCount) {
+      $(this).parent().carousel('prev'); 
+    },
+    swipeRight: function() {
+      $(this).parent().carousel('next'); 
+    },
+    threshold:0
+  });
+});
 </script>
