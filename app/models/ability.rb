@@ -17,6 +17,8 @@ class Ability
       can :destroy, PhraseVote, user_id: user.id
 
       can :update, User, id: user.id
+
+      can :destroy, SavedLocation, user_id: user.id
       
     else # guest
       can :read, :all

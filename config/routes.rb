@@ -9,9 +9,12 @@ Rails.application.routes.draw do
   resources :phrases do
     resources :phrase_votes
   end
+
   resources :current_conditions  do
     post :save_location, member: true
   end 
+
+  resources :saved_locations, only: [:destroy]
   resource :sessions
   resources :users, only: [:show, :edit, :update]
   resources :contributions, only: [:index]

@@ -1,7 +1,14 @@
 <h1><%=@user.name%>'s profile (<%= @user.points %> points)</h1>
 <% if @user == current_user %>
 <p>
-  <%=link_to "My Phrases", phrases_path, class: "btn btn-default"%>
+  <div class="btn-group" role="group">
+    <%=link_to edit_user_path(@user), class: "btn btn-default" do%>
+      <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Settings
+    <% end %>
+    <%=link_to phrases_path, class: "btn btn-default" do%>
+      <span class="glyphicon glyphicon-list-alt"></span> My Phrases
+    <% end %>
+  </div>
 </p>
 <% end%>
 
@@ -19,6 +26,29 @@
   </div>
 <% end %>
 <% if @user == current_user %>
+<h2>Favorite Locations</h2>
+<% if @user.saved_locations.blank? %>
+<p>You haven't favorited any locations.</p>
+<% else %>
+<div class="row">
+  <div class="col-xs-4">
+    <table class="table">
+      <thead>
+        <th>Location</th>
+        <th>Action</th>
+      </thead>
+      <tbody>
+      <% @user.saved_locations.each do |l|%>
+        <tr>
+          <td><%=l.name%></td>
+          <td><%=link_to "Delete", saved_location_path(l), method: :delete, class: "btn btn-danger"%></td>
+        </tr>
+      <% end%>
+      </tbody>
+    </table>
+  </div>
+</div>
+<% end %>
 <h2>Cancel my account</h2>
 <p>Please <%=link_to "contact us", "emailto: weatherminnesota@gmail.com"%> if you would like to cancel your account.</p>
 <% end %>
