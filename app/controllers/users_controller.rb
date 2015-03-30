@@ -1,5 +1,5 @@
 class UsersController <  ApplicationController
-  before_filter :auth_required
+  before_filter :auth_required, except: [:show]
 
   def show
     @user = UserDecorator.find(params[:id])

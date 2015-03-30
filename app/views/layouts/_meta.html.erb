@@ -1,0 +1,17 @@
+<meta name="description" content='<%= (content_for?(:description) ? yield(:description) : "The #{app_name} app provides the current weather, a (debately) funny response and a condition specific image. Try it out and share it with your friends!").html_safe %>'>
+<meta name="keywords" content="Weather,Humor,Funny,Conditions,Cold,Minnesota,UffDa">
+<meta name="author" content="Weather Clever">
+<meta name="format-detection" content="telephone=no" />
+<meta property="og:image" content="<%=(content_for?(:og_image) ? yield(:og_image) : asset_path('apple-icon-144x144.png'))%>" />
+<meta property="og:title" content="<%= (content_for?(:title) ? "#{yield(:title)} - " : "").html_safe %><%=app_name%>" />
+<meta property="og:type" content="website" />    
+<meta property="og:description" content='<%= (content_for?(:description) ? yield(:description) : "The #{app_name} app provides the current weather, a (debately) funny response and a condition specific image. Try it out and share it with your friends!").html_safe %>'>
+<meta property="og:url" content="<%= (content_for?(:og_url) ? yield(:og_url) : 'http://www.weatherclever.com/').html_safe%>" /> 
+<meta property="fb:admins" content="13900152" /> 
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta itemprop="thumbnailUrl" content="<%=(content_for?(:thumb) ? yield(:thumb) : asset_path('apple-icon-144x144.png'))%>"/><meta itemprop="thumbnailHeight" content="50"/>
+<meta itemprop="thumbnailWidth" content="50"/>
+<meta itemprop="image" content="<%=(content_for?(:og_image) ? yield(:og_image) : asset_path('apple-icon-144x144.png'))%>"/>
+<meta name="twitter:image:src" content="<%=(content_for?(:thumb) ? yield(:thumb) : asset_path('apple-icon-144x144.png'))%>">
+<link rel="canonical" href="<%=request.original_url%>">
