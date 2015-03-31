@@ -1,26 +1,62 @@
-<div style="text-align: center;">
-  <h1><%=@user.name%> has earned a <%=app_name%> badge!</h1>
+<!DOCTYPE html>
+<html lang="en">
+ <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# weatherclever: http://ogp.me/ns/fb/weatherclever#">
+  <meta property="fb:app_id" content="1530609577159617" /> 
+  <meta property="og:type"   content="weatherclever:badge" /> 
+  <meta property="og:url"    content="<%=user_badge_url(@user, @badge)%>" /> 
+  <meta property="og:title"  content="<%=@badge.title%>" /> 
+  <meta property="og:image"  content="<%=asset_url(@badge.image_path)%>" />
+  <title><%= (content_for?(:title) ? "#{yield(:title)} - " : "").html_safe %><%=app_name%></title>
+  <%= csrf_meta_tags %>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.1/html5shiv.js" type="text/javascript"></script>
+  <![endif]-->
+  <%= stylesheet_link_tag "application", :media => "all" %>
+  <%= favicon_link_tag 'apple-icon-144x144.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '144x144' %>
+  <%= favicon_link_tag 'apple-icon-114x114.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '114x114' %>
+  <%= favicon_link_tag 'apple-icon-72x72.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '72x72' %>
+  <%= favicon_link_tag 'apple-icon.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png' %>
+  <%= favicon_link_tag 'favicon.ico', :rel => 'shortcut icon' %>
+  <%= javascript_include_tag "application" %>
+</head>
+  <body>
+    <%= render partial: "layouts/nav"%>
+    <div class="container">  
+      <div class="row">
+        <div class="col-lg-12">
+          <div style="text-align: center;">
+            <h1><%=@user.name%> has earned a <%=app_name%> badge!</h1>
 
-  <div class="row"><p></p></div>
-  <div class="row">
-    <div class="col-md-6 col-md-offset-3">
-      <div class="well well-small">
-        <h2 style="margin-top: 0px;"><%=@badge.title%></h2>
-        <p>
-          <%=image_tag(@user.image)%>
-          &nbsp;<span class="glyphicon glyphicon-arrow-right"></span>&nbsp;
-          <%=image_tag(@badge.image_path)%>
-        </p>
-        <p>
-          <em><%=@badge.description%></em>
-        </p>
-        <p>
-          <small>Earned on: <%=l @badge.earned_on(@user)%></small>
-        </p>
-      </div>
-      <p>Want to earn badges of your own? <%=link_to_or_siginin "Look up the weather", root_path%> or <%=link_to_or_siginin "Add a phrase", new_phrase_path%> now!</p>
-    </div>
-  </div>
-</div>
+            <div class="row"><p></p></div>
+            <div class="row">
+              <div class="col-md-6 col-md-offset-3">
+                <div class="well well-small">
+                  <h2 style="margin-top: 0px;"><%=@badge.title%></h2>
+                  <p>
+                    <%=image_tag(@user.image)%>
+                    &nbsp;<span class="glyphicon glyphicon-arrow-right"></span>&nbsp;
+                    <%=image_tag(asset_path(@badge.image_path))%>
+                  </p>
+                  <p>
+                    <em><%=@badge.description%></em>
+                  </p>
+                  <p>
+                    <small>Earned on: <%=l @badge.earned_on(@user)%></small>
+                  </p>
+                  <div class="fb-like" data-href="" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
+                </div>
+                <p>Want to earn badges of your own? <%=link_to_or_siginin "Look up the weather", root_path%> or <%=link_to_or_siginin "Add a phrase", new_phrase_path%> now!</p>
+              </div>
+            </div>
+          </div>
 
-<hr />
+          <hr />
+        </div>
+      </div><!--/row-->
+      <%= render partial: "layouts/footer"%>
+    </div> <!-- /container -->
+    <%= render partial: "layouts/signin"%>
+    <%= render partial: "layouts/analytics"%>
+    <%= render partial: "layouts/facebook"%>
+  </body>
+</html>
