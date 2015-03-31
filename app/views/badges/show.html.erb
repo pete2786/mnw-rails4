@@ -1,0 +1,26 @@
+<div style="text-align: center;">
+  <h1><%=@user.name%> has earned a <%=app_name%> badge!</h1>
+
+  <div class="row"><p></p></div>
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <div class="well well-small">
+        <h2 style="margin-top: 0px;"><%=@badge.title%></h2>
+        <p>
+          <%=image_tag(@user.image)%>
+          &nbsp;<span class="glyphicon glyphicon-arrow-right"></span>&nbsp;
+          <%=image_tag(@badge.image_path)%>
+        </p>
+        <p>
+          <em><%=@badge.description%></em>
+        </p>
+        <p>
+          <small>Earned on: <%=l @badge.earned_on(@user)%></small>
+        </p>
+      </div>
+      <p>Want to earn badges of your own? <%=link_to_or_siginin "Look up the weather", root_path%> or <%=link_to_or_siginin "Add a phrase", new_phrase_path%> now!</p>
+    </div>
+  </div>
+</div>
+
+<hr />

@@ -9,7 +9,7 @@ module ApplicationHelper
   end
 
   def link_to_or_siginin(name, path, options={})
-    current_user ? link_to(name, path, options) : link_to(name, path, signin_options.merge(options))
+    current_user ? link_to(name, path, options) : link_to(name, '#', signin_options.merge(options))
   end
 
   def link_to_or_signin_block(path, options={}, &block)
@@ -38,10 +38,5 @@ module ApplicationHelper
     content_for(:og_image) { current.phrase.image.url }
     content_for(:thumb) { current.phrase.image.thumb.url }
     content_for(:og_url) { current_condition_url(current) }
-  end
-
-  def badge_image(badge)
-    filename = badge.level ? "#{badge.name}_level#{badge.level}" : badge.name
-    image_tag(asset_path("badges/#{filename}.png"), width: 25, height: 25)
   end
 end

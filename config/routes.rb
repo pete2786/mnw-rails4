@@ -16,7 +16,9 @@ Rails.application.routes.draw do
 
   resources :saved_locations, only: [:destroy]
   resource :sessions
-  resources :users, only: [:show, :edit, :update]
+  resources :users, only: [:show, :edit, :update] do
+    resources :badges, only: [:show]
+  end
   resources :contributions, only: [:index]
   get "/auth/:provider/callback" => "sessions#create"
 

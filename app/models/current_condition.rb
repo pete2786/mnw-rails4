@@ -19,7 +19,7 @@ class CurrentCondition < ActiveRecord::Base
 
   def self.with(params)
     cc = new( condition: Condition.with(params.with_indifferent_access) )
-    cc.attributes = cc.condition_params unless cc.condition.cod == "404"
+    cc.attributes = cc.condition_params unless cc.condition.nil? || cc.condition.cod == "404"
     cc
   end
 

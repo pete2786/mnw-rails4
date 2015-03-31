@@ -1,6 +1,7 @@
 class UserDecorator < Draper::Decorator
   decorates_finders
   delegate_all
+  decorates_association :badges, with: BadgeDecorator
 
   def badges_per_row(n)
     badge_array = []

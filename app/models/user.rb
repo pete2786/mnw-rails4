@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
   after_create :send_welcome_email
 
   def process_badges
-    self.add_badge(1) unless Merit::Badge.find(1).users.include?(self) && self.id <= 100
+    self.add_badge(1) unless self.has_badge?(1) && self.id <= 100
   end
 
   def phrase_vote_rep
@@ -28,6 +28,14 @@ class User < ActiveRecord::Base
 
   def badge_names
     @badge_names ||= badges.map(&:name)
+  end
+
+  def has_badge?(badge_id)
+    !find_badge(badge_id).nil?
+  end
+
+  def find_badge(badge_id)
+    badges.select{|b| b.id == badge_id}.first
   end
 
   def send_welcome_email
