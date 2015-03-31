@@ -9,9 +9,9 @@ class BadgeDecorator < Draper::Decorator
     level.present? ? " (Level: #{level})" : ""
   end
 
-  def image_path
+  def image_path(suffix='')
     filename = level ? "#{name}_level#{level}" : name
-    "badges/#{filename}.png"
+    "badges/#{filename}#{suffix}.png"
   end
 
   def earned_on(user)

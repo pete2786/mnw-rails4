@@ -5,8 +5,8 @@
   <meta property="og:type"   content="weatherclever:badge" /> 
   <meta property="og:url"    content="<%=user_badge_url(@user, @badge)%>" /> 
   <meta property="og:title"  content="<%=@user.name%> has earned a <%=app_name%> badge!" /> 
-  <meta property="og:image"  content="<%=asset_url(@badge.image_path)%>" />
-  <meta property="og:description" content="Want to earn <%=app_name%> badges of your own? Join the <%=app_name%> community today." />
+  <meta property="og:image"  content="<%=asset_url(@badge.image_path('x200'))%>" />
+  <meta property="og:description" content="<%=@badge.title%>. Want to earn <%=app_name%> badges of your own? Join the <%=app_name%> community today." />
   <title><%=@user.name%> has earned a <%=app_name%> badge!</title>
   <%= csrf_meta_tags %>
   <!--[if lt IE 9]>
