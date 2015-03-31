@@ -30,7 +30,7 @@
       </p>
       <p><small>As of: <%=l @current_condition.created_at%>, Submitted by: <%=link_to_or_siginin(@current_condition.phrase.user_name, user_path(@current_condition.phrase_user))%> (<%=@current_condition.phrase_user.phrase_rep_name%>)
       </small></p>
-      <div class="fb-like" data-href="<%=current_condition_path(@current_condition)%>" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
+      <div class="fb-like" data-href="<%=current_condition_path(@current_condition)%>" data-layout="button_count" data-action="recommend" data-show-faces="true" data-share="true"></div>
     </div>
 
     <div class="row"><p></p></div>

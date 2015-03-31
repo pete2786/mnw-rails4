@@ -19,7 +19,11 @@
       <div class="well well-small">
         <p><%=image_tag(asset_path(badge.image_path), width: 25, height: 25)%> <%=badge.title%></p>
         <p><small><%= badge.description %></small></p>
-        <p></p>
+        <% if @user == current_user %>
+        <p>
+          <div class="fb-share-button" data-href="<%=user_badge_url(@user, badge)%>" data-layout="button"></div>
+        </p>
+        <% end %>
       </div>
     </div>
     <% end %>

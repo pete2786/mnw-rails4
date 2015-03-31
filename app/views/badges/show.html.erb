@@ -4,8 +4,9 @@
   <meta property="fb:app_id" content="1530609577159617" /> 
   <meta property="og:type"   content="weatherclever:badge" /> 
   <meta property="og:url"    content="<%=user_badge_url(@user, @badge)%>" /> 
-  <meta property="og:title"  content="<%=@badge.title%>" /> 
+  <meta property="og:title"  content="<%=@user.name%> has earned a <%=app_name%> badge!" /> 
   <meta property="og:image"  content="<%=asset_url(@badge.image_path)%>" />
+  <meta property="og:description" content="Want to earn <%=app_name%> badges of your own? Join the <%=app_name%> community today." />
   <title><%=@user.name%> has earned a <%=app_name%> badge!</title>
   <%= csrf_meta_tags %>
   <!--[if lt IE 9]>
@@ -43,9 +44,9 @@
                   <p>
                     <small>Earned on: <%=l @badge.earned_on(@user)%></small>
                   </p>
-                  <div class="fb-like" data-href="" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
+                  <div class="fb-share-button" data-href="<%=user_badge_url(@user, @badge)%>" data-layout="button"></div>
                 </div>
-                <p>Want to earn badges of your own? <%=link_to_or_siginin "Look up the weather", root_path%> or <%=link_to_or_siginin "Add a phrase", new_phrase_path%> now!</p>
+                <p>Want to earn <%=app_name%> badges of your own? <%=link_to_or_siginin "Look up the weather", root_url%> or <%=link_to_or_siginin "Add a phrase", new_phrase_url%> now!</p>
               </div>
             </div>
           </div>
