@@ -44,12 +44,8 @@ class CurrentCondition < ActiveRecord::Base
 
   def determine_phrase
     return Phrase.complete.defaults.sample if condition == nil
-    cc = ConditionClassifier.new(condition)
-
-    return  Phrase.complete.with_time_period(cc.time_period).with_season(cc.season).with_condition(cc.condition).with_temperature(cc.temperature_range).sample ||
-            Phrase.complete.with_time_period(cc.time_period).with_season(cc.season).with_condition(cc.condition).any_temperature.sample ||
-            Phrase.complete.with_time_period(cc.time_period).with_season(cc.season).any_condition.with_temperature(cc.temperature_range).sample || 
-            Phrase.complete.defaults.sample
+    
+    WeightedPhrasePicker.new( ConditionClassifier.new(condition) ).phrase
   end
 
   def fetch_forecast

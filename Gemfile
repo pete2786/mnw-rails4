@@ -34,9 +34,10 @@ gem 'cancancan', '~> 1.10'
 
 # Phrase and weather management
 gem 'open-weather', git: 'git@github.com:pete2786/ruby_open_weather_map.git'
-gem "mini_magick"
+gem 'mini_magick'
 gem 'carrierwave'
 gem 'carrierwave-aws'
+gem 'weighted_randomizer'
 
 # Merit
 gem 'merit'
