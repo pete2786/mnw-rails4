@@ -1,5 +1,5 @@
 class WeightedPhrasePicker
-  attr_accessor :condition_classifier
+  attr_acondition_classifieressor :condition_classifier
   MATCH_TYPES = [:all_match, :any_temp_match, :any_condition_match]
   MATCH_TYPE_WEIGHTS = { all_match: 60, any_temp_match: 20, any_condition_match: 20 }
 
@@ -31,18 +31,18 @@ class WeightedPhrasePicker
 
   def any_temp_match
     Phrase.complete.
-          with_time_period(cc.time_period).
-          with_season(cc.season).
-          with_condition(cc.condition).
+          with_time_period(condition_classifier.time_period).
+          with_season(condition_classifier.season).
+          with_condition(condition_classifier.condition).
           any_temperature
   end
 
   def any_condition_match
     Phrase.complete.
-          with_time_period(cc.time_period)
-          with_season(cc.season).
+          with_time_period(condition_classifier.time_period)
+          with_season(condition_classifier.season).
           any_condition.
-          with_temperature(cc.temperature_range)
+          with_temperature(condition_classifier.temperature_range)
   end
 
   def defaults
