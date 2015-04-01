@@ -8,6 +8,7 @@ Merit.setup do |config|
 
   config.user_model_name = 'User'
   config.current_user_method = 'current_user'
+  config.add_observer 'NewBadgeObserver'
 end
 
 Merit::Badge.create!(

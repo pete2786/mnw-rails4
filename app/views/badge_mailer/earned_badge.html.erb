@@ -1,0 +1,6 @@
+<p style="Margin-top: 0;color: #565656;font-family: Georgia,serif;font-size: 16px;line-height: 25px;Margin-bottom: 25px">
+  Hi <%=@user.name%>,
+</p>
+<p style="Margin-top: 0;color: #565656;font-family: Georgia,serif;font-size: 16px;line-height: 25px;Margin-bottom: 25px">
+  You have earned the <%=@badge.title%> on <%=app_name%>. <%=@badge.description%>. Check out more about your badge, or share it on Facebook from your <%=link_to @badge.title, user_badge_url(@user, @badge)%> badge page. You can view all of you badges on your <%=link_to "profile", user_url(@user)%>. Keep contributing to the <%=app_name%> community to earn more points and badges!
+</p>
