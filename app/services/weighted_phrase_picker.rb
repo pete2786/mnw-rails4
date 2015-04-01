@@ -9,9 +9,16 @@ class WeightedPhrasePicker
 
   def phrase
     send(weighted_match_type).sample ||
-    remaining_match_types.detect{|mt| send(mt).sample } ||
+    alternate_match ||
     defaults.sample
   end
+
+  def alternate_match
+    remaining_match_types.each do |match_type|
+      sample = send(match_type).sample
+      return sample unless sample.nil?
+    end
+  end  
 
   def weighted_match_type
     @weighted_match_type ||= WeightedRandomizer.new(MATCH_TYPE_WEIGHTS).sample
