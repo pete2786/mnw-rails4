@@ -38,6 +38,7 @@ gem 'mini_magick'
 gem 'carrierwave'
 gem 'carrierwave-aws'
 gem 'weighted_randomizer'
+gem 'sidekiq'
 
 # Merit
 gem 'merit'
