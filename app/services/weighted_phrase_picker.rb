@@ -14,10 +14,13 @@ class WeightedPhrasePicker
   end
 
   def alternate_match
+    sample = nil
     remaining_match_types.each do |match_type|
       sample = send(match_type).sample
-      return sample unless sample.nil?
+      break unless sample.nil?
     end
+
+    sample
   end  
 
   def weighted_match_type
