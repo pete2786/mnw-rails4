@@ -9,3 +9,4 @@ attribute :long
 attribute :url
 attribute :text
 attribute :image
+attribute :icon
