@@ -1,0 +1,202 @@
+<div class="row">
+  <div style="display: none;">
+    <%=image_tag @current_condition.phrase.image, alt: "phrase image"%>
+  </div>
+  <div id="conditions" class="col-lg-12" style="background: url(<%=@current_condition.phrase.image%>) no-repeat; background-size: 100% 100%;">
+    <div class="row"><p></p></div>
+
+    <%=render partial: "current_conditions/form"%>
+    
+    <div class="content-container">
+      <h1 id="location"><%=@current_condition.location%></h1>
+      <p id="temp"><span id="value"><%=@current_condition.temperature%></span>&deg;</p>
+      <p id="condition"><%=@current_condition.text%></p>
+      <div id="phrase_vote_container">
+        <%=render partial: "phrase_votes/phrase_vote", locals: { phrase: @current_condition.phrase }%>
+      </div>
+      <p></p>
+      <p>
+        <%=link_to current_conditions_path(lat: @current_condition.lat, long: @current_condition.long), method: :post, class: "btn btn-default btn-small" do%>
+          <span class="glyphicon glyphicon-repeat"></span> Refresh
+        <% end %> 
+        <%=link_to_or_signin_block(new_phrase_path(phrase: @current_condition.phrase_params), class: "btn btn-default btn") do%>
+          <span class="glyphicon glyphicon-plus"></span> Add Phrase 
+        <% end %>
+        <% if current_user %>
+          <%=link_to(current_condition_save_location_path(@current_condition), class: "btn btn-default btn", method: :post, remote: true) do%>
+            <span class="glyphicon glyphicon-star"></span> Favorite Location
+          <% end %>
+        <% end %>
+      </p>
+      <p><small>As of: <%=l @current_condition.created_at%>, Submitted by: <%=link_to_or_siginin(@current_condition.phrase.user_name, user_path(@current_condition.phrase_user))%> (<%=@current_condition.phrase_user.phrase_rep_name%>)
+      </small></p>
+      <div class="fb-like" data-href="<%=current_condition_path(@current_condition)%>" data-layout="button_count" data-action="recommend" data-show-faces="true" data-share="true"></div>
+    </div>
+
+    <div class="row"><p></p></div>
+
+    <div class="row hidden-lg">
+      <div class="col-xs-12">
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+          <!-- Indicators -->
+          <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+          </ol>
+
+          <!-- Wrapper for slides -->
+          <div class="carousel-inner" role="listbox">
+            <div class="item active">
+              <div class="row">
+                <div class="col-xs-6">
+                  <div class="content-container">
+                    <h4><%=@current_condition.created_at.strftime('%m/%d')%></h4>
+                    <h3><span id="forecast-temp-1">-&deg; / -&deg;</span></h3>
+                    <p><span id="forecast-icon-1">-</span></p>
+                  </div>
+                </div>
+
+                <div class="col-xs-6">
+                  <div class="content-container">
+                    <h4><%=@current_condition.created_at.since(1.day).strftime('%m/%d')%></h4>
+                    <h3><span id="forecast-temp-2">-&deg; / -&deg;</span></h3>
+                    <p><span id="forecast-icon-2">-</span></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="item">
+              <div class="row">
+                <div class="col-xs-6">
+                  <div class="content-container">
+                  <h4><%=@current_condition.created_at.since(2.day).strftime('%m/%d')%></h4>
+                  <h3><span id="forecast-temp-3">-&deg; / -&deg;</span></h3>
+                  <p><span id="forecast-icon-3">-</span></p>
+                  </div>
+                </div>
+
+                <div class="col-xs-6">
+                    <div class="content-container">
+                    <h4><%=@current_condition.created_at.since(3.day).strftime('%m/%d')%></h4>
+                    <h3><span id="forecast-temp-4">-&deg; / -&deg;</span></h3>
+                    <p><span id="forecast-icon-4">-</span></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="item">
+              <div class="row">
+                <div class="col-xs-6">
+                  <div class="content-container">
+                    <h4><%=@current_condition.created_at.since(4.day).strftime('%m/%d')%></h4>
+                    <h3><span id="forecast-temp-5">-&deg; / -&deg;</span></h3>
+                    <p><span id="forecast-icon-5">-</span></p>
+                  </div>
+                </div>
+
+                <div class="col-xs-6">
+                    <div class="content-container">
+                    <h4><%=@current_condition.created_at.since(5.day).strftime('%m/%d')%></h4>
+                    <h3><span id="forecast-temp-6">-&deg; / -&deg;</span></h3>
+                    <p><span id="forecast-icon-6">-</span></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row visible-lg">
+      <div class="col-lg-2">
+        <div class="content-container">
+          <h4><%=@current_condition.created_at.strftime('%m/%d')%></h4>
+          <h3><span id="forecast-temp-1">-&deg; / -&deg;</span></h3>
+          <p><span id="forecast-icon-1">-</span></p>
+        </div>
+      </div>
+      <div class="col-lg-2">
+        <div class="content-container">
+          <h4><%=@current_condition.created_at.since(1.day).strftime('%m/%d')%></h4>
+          <h3><span id="forecast-temp-2">-&deg; / -&deg;</span></h3>
+          <p><span id="forecast-icon-2">-</span></p>
+        </div>
+      </div>
+      <div class="col-lg-2">
+        <div class="content-container">
+          <h4><%=@current_condition.created_at.since(2.day).strftime('%m/%d')%></h4>
+          <h3><span id="forecast-temp-3">-&deg; / -&deg;</span></h3>
+          <p><span id="forecast-icon-3">-</span></p>
+        </div>
+      </div>
+      <div class="col-lg-2">
+        <div class="content-container">
+          <h4><%=@current_condition.created_at.since(3.day).strftime('%m/%d')%></h4>
+          <h3><span id="forecast-temp-4">-&deg; / -&deg;</span></h3>
+          <p><span id="forecast-icon-4">-</span></p>
+        </div>
+      </div>
+      <div class="col-lg-2">
+        <div class="content-container">
+          <h4><%=@current_condition.created_at.since(4.day).strftime('%m/%d')%></h4>
+          <h3><span id="forecast-temp-5">-&deg; / -&deg;</span></h3>
+          <p><span id="forecast-icon-5">-</span></p>
+        </div>
+      </div>
+      <div class="col-lg-2">
+        <div class="content-container">
+        <h4><%=@current_condition.created_at.since(5.day).strftime('%m/%d')%></h4>
+        <h3><span id="forecast-temp-6">-&deg; / -&deg;</span></h3>
+        <p><span id="forecast-icon-6">-</span></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+$(function() {
+  $.ajax({
+    dataType: "json",
+    url: '<%=api_v1_current_condition_forecast_path(@current_condition)%>',
+    success: forecast_success,
+    error: forecast_error
+  });
+});
+
+function forecast_success(data){
+  var forecast = data.result.current_condition.forecast;
+  
+  if(forecast === null)
+    return;
+
+  jQuery.each(forecast.list, function(index, v){
+    var day = index + 1;
+    var temp_span = "span#forecast-temp-" + day;
+    var icon_span = "span#forecast-icon-" + day;
+
+    $(temp_span).replaceWith(to_farenheit(v.temp.day) + "&deg; / " + to_farenheit(v.temp.night) + "&deg;");
+    $(icon_span).replaceWith('<i class="wi '+ map_icon(v.weather[0].icon) + '"></i>');
+  });
+}
+
+function forecast_error(data){
+
+}
+
+$(document).ready(function() {  
+  $(".carousel-inner").swipe( {
+    swipeLeft:function(event, direction, distance, duration, fingerCount) {
+      $(this).parent().carousel('prev'); 
+    },
+    swipeRight: function() {
+      $(this).parent().carousel('next'); 
+    },
+    threshold:0
+  });
+});
+</script>

@@ -16,6 +16,8 @@ class CurrentCondition < ActiveRecord::Base
 
   scope :recent, ->{ order('id desc').limit(5) }
   scope :by_user, ->(u){ where(user: u) }
+  scope :in_last, ->(t){ where("created_at > ? ", t.ago)}
+  scope :at, ->(l){ where( lat: l.lat, long: l.long) }
 
   def self.with(params)
     cc = new( condition: Condition.with(params.with_indifferent_access) )

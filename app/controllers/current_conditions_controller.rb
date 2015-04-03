@@ -14,6 +14,7 @@ class CurrentConditionsController < ApplicationController
   end
 
   def show
+    @new_current_condition = CurrentCondition.new
     @current_condition = CurrentConditionDecorator.find(params[:id])
   end
 

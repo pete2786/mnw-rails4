@@ -1,0 +1,60 @@
+<%=simple_form_for @new_current_condition do |f|%>
+  <%=f.input :location, label: false, placeholder: "Enter your location (City, ST)"%>
+  <%=hidden_field_tag :lat%>
+  <%=hidden_field_tag :long%>
+  <div class="btn-group" role="group">
+    <button type="button" class="btn btn-default" id="get_weather">Get Weather</button>
+    <button type="button" class="btn btn-default" id="my_location">My Location</button>
+    <div class="btn-group">
+      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+        <span class="glyphicon glyphicon-star"></span> Favorites <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" role="menu">
+        <% if current_user%>
+          <% if !current_user.saved_locations.blank? %>
+            <% current_user.saved_locations.each do|l|%>
+            <li>
+              <%=link_to l.name, current_conditions_path(lat: l.lat, long: l.long), method: :post%>
+            </li>
+            <li class="divider"></li>
+            <li><%=link_to "Edit Favorites", user_path(current_user)%></li>
+            <%end%>
+          <% else %>
+            <li>None</li>
+          <% end %>
+        <% else %>
+          <li><a href="#" data-toggle='modal' data-target='#sign_in_modal'>
+            Sign in to use favorites</a></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+<%end%>
+
+<script>
+  $("#my_location").click(function(e){
+    e.preventDefault();
+    navigator.geolocation.getCurrentPosition(geoSuccess, geoError, {});  
+  });
+
+  $("#get_weather").click(function(e){
+    e.preventDefault();
+
+    if($("#current_condition_location").val() === "")
+      alert("You must enter a location or enable location services and click My Location");
+    else
+      $("#new_current_condition").submit();
+  });
+
+  function geoSuccess(position){
+    $("#current_condition_location").val("My location");
+    $("#lat").val(position.coords.latitude);
+    $("#long").val(position.coords.longitude);
+    $("#new_current_condition").submit();
+  }
+
+  function geoError(d, textStatus, error){
+    console.error("getCurrentPosition failed, status: " + d.message);
+    alert("Unable to get your location" + d.message);
+  }
+</script>
