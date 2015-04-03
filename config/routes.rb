@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   end
   resources :contributions, only: [:index]
   get "/auth/:provider/callback" => "sessions#create"
+  get "/auth/failure" => "home#index"
 
   namespace :api do
     namespace :v1 do
