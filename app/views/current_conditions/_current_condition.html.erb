@@ -1,3 +1,5 @@
+<% forecast = true unless defined?(forecast)%>
+
 <div class="row">
   <div style="display: none;">
     <%=image_tag @current_condition.phrase.image, alt: "phrase image"%>
@@ -8,7 +10,7 @@
     <%=render partial: "current_conditions/form"%>
     
     <div class="content-container">
-      <h1 id="location"><%=@current_condition.location%></h1>
+      <h1 id="location"><%=link_to @current_condition.location, current_condition_path(@current_condition)%></h1>
       <p id="temp"><span id="value"><%=@current_condition.temperature%></span>&deg;</p>
       <p id="condition"><%=@current_condition.text%></p>
       <div id="phrase_vote_container">
@@ -16,6 +18,11 @@
       </div>
       <p></p>
       <p>
+        <% unless forecast %>
+          <%=link_to current_condition_path(@current_condition), class: "btn btn-default btn-small" do%>
+            <i class="wi wi-umbrella"></i> Forecast
+          <% end %>
+        <% end %>
         <%=link_to current_conditions_path(lat: @current_condition.lat, long: @current_condition.long), method: :post, class: "btn btn-default btn-small" do%>
           <span class="glyphicon glyphicon-repeat"></span> Refresh
         <% end %> 
@@ -24,7 +31,7 @@
         <% end %>
         <% if current_user %>
           <%=link_to(current_condition_save_location_path(@current_condition), class: "btn btn-default btn", method: :post, remote: true) do%>
-            <span class="glyphicon glyphicon-star"></span> Favorite Location
+            <span class="glyphicon glyphicon-star"></span> Favorite
           <% end %>
         <% end %>
       </p>
@@ -34,6 +41,8 @@
     </div>
 
     <div class="row"><p></p></div>
+
+    <% if forecast %>
 
     <div class="row hidden-lg">
       <div class="col-xs-12">
@@ -155,48 +164,50 @@
         <p><span id="forecast-icon-6">-</span></p>
       </div>
     </div>
+
+    <script type="text/javascript">
+    $(function() {
+      $.ajax({
+        dataType: "json",
+        url: '<%=api_v1_current_condition_forecast_path(@current_condition)%>',
+        success: forecast_success,
+        error: forecast_error
+      });
+    });
+
+    function forecast_success(data){
+      var forecast = data.result.current_condition.forecast;
+      
+      if(forecast === null)
+        return;
+
+      jQuery.each(forecast.list, function(index, v){
+        var day = index + 1;
+        var temp_span = "span#forecast-temp-" + day;
+        var icon_span = "span#forecast-icon-" + day;
+
+        $(temp_span).replaceWith(to_farenheit(v.temp.day) + "&deg; / " + to_farenheit(v.temp.night) + "&deg;");
+        $(icon_span).replaceWith('<i class="wi '+ map_icon(v.weather[0].icon) + '"></i>');
+      });
+    }
+
+    function forecast_error(data){
+
+    }
+
+    $(document).ready(function() {  
+      $(".carousel-inner").swipe( {
+        swipeLeft:function(event, direction, distance, duration, fingerCount) {
+          $(this).parent().carousel('prev'); 
+        },
+        swipeRight: function() {
+          $(this).parent().carousel('next'); 
+        },
+        threshold:0
+      });
+    });
+    </script>
+    <% end %>
+
   </div>
 </div>
-
-<script type="text/javascript">
-$(function() {
-  $.ajax({
-    dataType: "json",
-    url: '<%=api_v1_current_condition_forecast_path(@current_condition)%>',
-    success: forecast_success,
-    error: forecast_error
-  });
-});
-
-function forecast_success(data){
-  var forecast = data.result.current_condition.forecast;
-  
-  if(forecast === null)
-    return;
-
-  jQuery.each(forecast.list, function(index, v){
-    var day = index + 1;
-    var temp_span = "span#forecast-temp-" + day;
-    var icon_span = "span#forecast-icon-" + day;
-
-    $(temp_span).replaceWith(to_farenheit(v.temp.day) + "&deg; / " + to_farenheit(v.temp.night) + "&deg;");
-    $(icon_span).replaceWith('<i class="wi '+ map_icon(v.weather[0].icon) + '"></i>');
-  });
-}
-
-function forecast_error(data){
-
-}
-
-$(document).ready(function() {  
-  $(".carousel-inner").swipe( {
-    swipeLeft:function(event, direction, distance, duration, fingerCount) {
-      $(this).parent().carousel('prev'); 
-    },
-    swipeRight: function() {
-      $(this).parent().carousel('next'); 
-    },
-    threshold:0
-  });
-});
-</script>
