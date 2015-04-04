@@ -20,18 +20,22 @@
       <p>
         <% unless forecast %>
           <%=link_to current_condition_path(@current_condition), class: "btn btn-default btn-small" do%>
-            <i class="wi wi-umbrella"></i> Forecast
+            <i class="wi wi-umbrella"></i> 
+            <span class="hidden-xs hidden-sm">Forecast</span>
           <% end %>
         <% end %>
         <%=link_to current_conditions_path(lat: @current_condition.lat, long: @current_condition.long), method: :post, class: "btn btn-default btn-small" do%>
-          <span class="glyphicon glyphicon-repeat"></span> Refresh
+          <span class="glyphicon glyphicon-repeat"></span>
+          <span class="hidden-xs hidden-sm">Refresh</span>
         <% end %> 
         <%=link_to_or_signin_block(new_phrase_path(phrase: @current_condition.phrase_params), class: "btn btn-default btn") do%>
-          <span class="glyphicon glyphicon-plus"></span> Add Phrase 
+          <span class="glyphicon glyphicon-plus"></span>
+          <span class="hidden-xs hidden-sm">Add Phrase</span>
         <% end %>
         <% if current_user %>
           <%=link_to(current_condition_save_location_path(@current_condition), class: "btn btn-default btn", method: :post, remote: true) do%>
-            <span class="glyphicon glyphicon-star"></span> Favorite
+            <span class="glyphicon glyphicon-star"></span>
+            <span class="hidden-xs hidden-sm">Favorite</span>
           <% end %>
         <% end %>
       </p>

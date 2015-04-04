@@ -1,35 +1,69 @@
-<%=simple_form_for @new_current_condition do |f|%>
-  <%=f.input :location, label: false, placeholder: "Enter your location (City, ST)"%>
-  <%=hidden_field_tag :lat%>
-  <%=hidden_field_tag :long%>
-  <div class="btn-group" role="group">
-    <button type="button" class="btn btn-default" id="get_weather">Get Weather</button>
-    <button type="button" class="btn btn-default" id="my_location">My Location</button>
-    <div class="btn-group">
-      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-        <span class="glyphicon glyphicon-star"></span> Favorites <span class="caret"></span>
-      </button>
-      <ul class="dropdown-menu" role="menu">
-        <% if current_user%>
-          <% if !current_user.saved_locations.blank? %>
-            <% current_user.saved_locations.each do|l|%>
-            <li>
-              <%=link_to l.name, current_conditions_path(lat: l.lat, long: l.long), method: :post%>
-            </li>
-            <li class="divider"></li>
-            <li><%=link_to "Edit Favorites", user_path(current_user)%></li>
-            <%end%>
-          <% else %>
-            <li>None</li>
-          <% end %>
-        <% else %>
-          <li><a href="#" data-toggle='modal' data-target='#sign_in_modal'>
-            Sign in to use favorites</a></li>
-        <% end %>
-      </ul>
-    </div>
+<div class="row">
+  <div class="col-xs-12">
+    <%=simple_form_for @new_current_condition do |f|%>
+      <%=f.input :location, label: false, placeholder: "Enter your location (City, ST)"%>
+      <%=hidden_field_tag :lat%>
+      <%=hidden_field_tag :long%>
+      <div class="btn-group" role="group">
+        <button type="button" class="btn btn-default" id="get_weather">
+          <span class="glyphicon glyphicon-play"></span> 
+          <span class="hidden-xs hidden-sm">Get Weather</span>
+        </button>
+        <button type="button" class="btn btn-default" id="my_location">
+          <span class="glyphicon glyphicon-map-marker"></span> 
+          <span class="hidden-xs hidden-sm">My Location</span>
+        </button>
+
+        <div class="btn-group">
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+            <span class="glyphicon glyphicon-star"></span> 
+            <span class="hidden-xs hidden-sm">Favorites </span>
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" role="menu">
+            <% if current_user%>
+              <% if !current_user.saved_locations.blank? %>
+                <% current_user.saved_locations.each do|l|%>
+                <li>
+                  <%=link_to l.name, current_conditions_path(lat: l.lat, long: l.long), method: :post%>
+                </li>
+                <li class="divider"></li>
+                <li><%=link_to "Edit Favorites", user_path(current_user)%></li>
+                <%end%>
+              <% else %>
+                <li>None</li>
+              <% end %>
+            <% else %>
+              <li><a href="#" data-toggle='modal' data-target='#sign_in_modal'>
+                Sign in to use favorites</a></li>
+            <% end %>
+          </ul>
+        </div>
+
+        <div class="btn-group">
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+            <span class="glyphicon glyphicon-time"></span> 
+            <span class="hidden-xs hidden-sm">Recent </span>
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" role="menu">
+            <% if current_user %>
+              <li><a href="#"><i>My Recent</i></a></li>
+              <% CurrentCondition.recent.by_user(current_user).each do |c| %>
+              <li><%=link_to c.location, current_condition_path(c)%></li>
+              <% end %>
+              <li class="divider"></li>
+            <% end %>
+
+            <% CurrentCondition.recent.each do |c| %>
+            <li><%=link_to c.location, current_condition_path(c)%></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    <%end%>
   </div>
-<%end%>
+</div>
 
 <script>
   $("#my_location").click(function(e){

@@ -1,8 +1,12 @@
 class PhrasesController < ApplicationController
-  before_filter :auth_required
-  load_and_authorize_resource
+  before_filter :auth_required, except: [:index, :show]
+  load_and_authorize_resource except: [:my]
 
   def index
+    @phrases = filtered_phrases.paginate(page: params[:page], per_page: 25)
+  end
+
+  def my
     @phrases = current_user.phrases
   end
 
@@ -37,4 +41,15 @@ class PhrasesController < ApplicationController
     params.require(:phrase).permit(:season, :phrase, :stock_image_id, :image, :remote_custom_image_url, :custom_image_cache,
                                    :condition, :temperature, :custom_image, :time_period)
   end
+
+  def filtered_phrases
+    case params[:sort]
+    when 'recent'
+      Phrase.complete.order('created_at desc')
+    else
+      Phrase.complete.top
+    end
+    
+  end
+  private :filtered_phrases
 end

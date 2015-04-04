@@ -25,6 +25,7 @@ gem 'responders'
 gem 'bootstrap-sass', '~> 3.3.4'
 gem 'simple_form'
 gem 'image-picker-rails'
+gem 'will_paginate'
 
 # authorization/authentication
 gem 'omniauth-facebook'

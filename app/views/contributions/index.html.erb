@@ -5,22 +5,23 @@
     <h2>Top Phrases</h2>
     <table class="table table-striped table-hover table-condensed">
       <thead>
-        <th>Image</th>
+        <th></th>
         <th>Phrase</th>
         <th>Conditions</th>
-        <th>Rep</th>
+        <th>+/-</th>
       </thead>
       <tbody>
         <% @contributions.top_phrases.each do |p| %>
         <tr>
           <td><%=image_tag p.thumb, height: 25, width: 25%></td>
-          <td><%=truncate(p.phrase, limit: 25)%></td>
+          <td><%=link_to truncate(p.phrase, limit: 25), phrase_path(p)%></td>
           <td><%=p.condition%>/<%=p.temperature%></td>
           <td><%=p.phrase_vote_rep%></td>
         </tr>
         <% end %>
       </tbody>
     </table>
+    <p><%=link_to "Browse all phrases", phrases_path%>
   </div>
   <div class="col-lg-6">
     <h2>Top Contributers</h2>
@@ -40,3 +41,5 @@
     </table>
   </div>
 </div>
+
+<hr />

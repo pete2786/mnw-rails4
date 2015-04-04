@@ -1,6 +1,6 @@
 class Contributions
   def top_phrases
-    Phrase.complete.top(10)
+    Phrase.complete.top.limit(10)
   end
 
   def top_users

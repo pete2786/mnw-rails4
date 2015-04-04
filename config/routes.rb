@@ -4,10 +4,12 @@ Rails.application.routes.draw do
   get 'privacy' => 'home#privacy'
   get 'latest' => 'home#latest'
   get 'reputation' => 'home#reputation'
+  get 'tips' => 'home#tips'
 
   resources :stock_images
   resources :phrases do
     resources :phrase_votes
+    get :my, on: :collection
   end
 
   resources :current_conditions  do
@@ -26,7 +28,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :current_conditions do
-        get :forecast, member: true
+        get :forecast, on: :member
       end
     end
   end

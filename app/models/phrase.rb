@@ -24,10 +24,9 @@ class Phrase < ActiveRecord::Base
   scope :any_condition, ->{where(condition: 'any')}
   scope :defaults, ->{ any_temperature.any_condition.with_season('any') }
   scope :complete, ->{ where(status: 'complete') }
-  scope :top, ->(n){  joins("LEFT JOIN phrase_votes up ON up.phrase_id = phrases.id and up.vote_type = 'Up'")
+  scope :top, ->(){  joins("LEFT JOIN phrase_votes up ON up.phrase_id = phrases.id and up.vote_type = 'Up'")
                       .joins("LEFT JOIN phrase_votes down ON down.phrase_id = phrases.id  and down.vote_type = 'Down'")
                       .group('phrases.id').order('COUNT(up.id) - COUNT(down.id) DESC')
-                      .limit(n)
                     }
 
   before_validation :swap_image, except: :create

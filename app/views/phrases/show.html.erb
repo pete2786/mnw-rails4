@@ -1,13 +1,17 @@
 
 <%- model_class = Phrase -%>
 <div class="row">
-  <p>Preview</p>
+  <p>Sample</p>
   <div id="conditions" class="col-lg-12" style="background: url(<%=@phrase.image%>) no-repeat; background-size: 100% 100%;">
     <div class="row"><p></p></div>
     <div class="content-container">
       <h1 id="location">Minneapolis</h1>
       <p id="temp"><span id="value">-40</span>&deg;</p>
       <p id="condition"><%=@phrase.condition.capitalize%>... <%=@phrase.phrase%></p>
+      <div id="phrase_vote_container">
+        <%=render partial: "phrase_votes/phrase_vote", locals: { phrase: @phrase }%>
+      </div>
+      <p></p>
       <p>
         <%=link_to '#', class: "btn btn-default btn-small" do%>
           <span class="glyphicon glyphicon-repeat"></span> Refresh
@@ -16,13 +20,15 @@
           <span class="glyphicon glyphicon-plus"></span> Add Phrase 
         <% end %>
       </p>
+      <p><small>As of: <%=l @phrase.created_at%>, Submitted by: <%=link_to_or_siginin(@phrase.user_name, user_path(@phrase.user))%> (<%=@phrase.user.phrase_rep_name%>)
+      </small></p>
       <div class="fb-like" data-href="http://www.weatherclever.com/" data-layout="button_count" data-action="recommend" data-show-faces="true" data-share="true"></div>
     </div>
 
     <div class="row"><p></p></div>
 </div>
 
-<dl class="dl-vertical">
+<dl class="dl-horizontal">
   <dt><strong><%= model_class.human_attribute_name(:season) %>:</strong></dt>
   <dd><%= @phrase.season %></dd>
   <dt><strong><%= model_class.human_attribute_name(:condition) %>:</strong></dt>

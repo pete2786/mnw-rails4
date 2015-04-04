@@ -15,37 +15,6 @@
   </div>
   <div class="navbar-collapse collapse navbar-responsive-collapse">
     <ul class="nav navbar-nav">
-      <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-          Recent <b class="caret"></b>
-        </a>
-        <ul class="dropdown-menu">
-          <% if current_user %>
-            <li><a href="#"><i>My Recent</i></a></li>
-            <% CurrentCondition.recent.by_user(current_user).each do |c| %>
-            <li><%=link_to c.location, current_condition_path(c)%></li>
-            <% end %>
-            <li class="divider"></li>
-          <% end %>
-
-          <% CurrentCondition.recent.each do |c| %>
-          <li><%=link_to c.location, current_condition_path(c)%></li>
-          <% end %>
-        </ul>
-      </li>
-
-      <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-          About <b class="caret"></b>
-        </a>
-        <ul class="dropdown-menu">
-          <li><%=link_to("Latest Update", latest_path)%></li>
-          <li><%=link_to("About", about_path)%></li>
-          <li><%=link_to("Contact", about_path)%></li>
-          <li><%=link_to("Reputation", reputation_path)%></li>
-        </ul>
-      </li>
-
       <li><%=link_to(contributions_path) do%>
         <span class="glyphicon glyphicon-list" aria-hidden="true"></span> Leaderboard
         <% end %>
@@ -54,6 +23,27 @@
       <li><%=link_to_or_signin_block(new_phrase_path) do%>
         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add a Phrase
       <%end%>
+      </li>
+
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+          Phrases <b class="caret"></b>
+        </a>
+        <ul class="dropdown-menu">
+          <li><%=link_to("Browse", phrases_path)%></li>
+          <li><%=link_to("Tips", tips_path)%></li>
+        </ul>
+      </li>
+
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+          About <b class="caret"></b>
+        </a>
+        <ul class="dropdown-menu">
+          <li><%=link_to("Reputation", reputation_path)%></li>
+          <li><%=link_to("Contact", about_path)%></li>
+          <li><%=link_to("About", about_path)%></li>
+        </ul>
       </li>
 
     </ul>
@@ -73,7 +63,7 @@
             <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Settings
             <% end %>
           </li>
-          <li><%=link_to(phrases_path) do%>
+          <li><%=link_to(my_phrases_path) do%>
             <span class="glyphicon glyphicon-list-alt"></span> My Phrases
             <% end %>
           </li>
