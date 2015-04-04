@@ -1,19 +1,36 @@
+
 <%- model_class = Phrase -%>
-<div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+<div class="row">
+  <p>Preview</p>
+  <div id="conditions" class="col-lg-12" style="background: url(<%=@phrase.image%>) no-repeat; background-size: 100% 100%;">
+    <div class="row"><p></p></div>
+    <div class="content-container">
+      <h1 id="location">Minneapolis</h1>
+      <p id="temp"><span id="value">-40</span>&deg;</p>
+      <p id="condition"><%=@phrase.condition.capitalize%>... <%=@phrase.phrase%></p>
+      <p>
+        <%=link_to '#', class: "btn btn-default btn-small" do%>
+          <span class="glyphicon glyphicon-repeat"></span> Refresh
+        <% end %> 
+        <%=link_to '#', class: "btn btn-default btn" do%>
+          <span class="glyphicon glyphicon-plus"></span> Add Phrase 
+        <% end %>
+      </p>
+      <div class="fb-like" data-href="http://www.weatherclever.com/" data-layout="button_count" data-action="recommend" data-show-faces="true" data-share="true"></div>
+    </div>
+
+    <div class="row"><p></p></div>
 </div>
 
-<%=image_tag @phrase.image%>
-
-<dl class="dl-horizontal">
+<dl class="dl-vertical">
   <dt><strong><%= model_class.human_attribute_name(:season) %>:</strong></dt>
   <dd><%= @phrase.season %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:phrase) %>:</strong></dt>
-  <dd><%= @phrase.phrase %></dd>
   <dt><strong><%= model_class.human_attribute_name(:condition) %>:</strong></dt>
   <dd><%= @phrase.condition %></dd>
   <dt><strong><%= model_class.human_attribute_name(:temperature) %>:</strong></dt>
   <dd><%= @phrase.temperature %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:time_period) %>:</strong></dt>
+  <dd><%= @phrase.time_period %></dd>
 </dl>
 <hr />
 <%= link_to t('.back', :default => t("helpers.links.back")),

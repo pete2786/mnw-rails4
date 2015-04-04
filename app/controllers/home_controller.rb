@@ -15,6 +15,7 @@ class HomeController < ApplicationController
   def fetch_condition(location)
     current_condition = CurrentCondition.with(lat: location.lat, long: location.long)
     current_condition.user = current_user
+    current_condition.location = location.name
     current_condition.save
     current_condition
   end
