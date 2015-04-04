@@ -30,6 +30,9 @@
           Phrases <b class="caret"></b>
         </a>
         <ul class="dropdown-menu">
+          <% if current_user %>
+          <li><%=link_to("My Phrases", my_phrases_path)%></li>
+          <% end %>
           <li><%=link_to("Browse", phrases_path)%></li>
           <li><%=link_to("Tips", tips_path)%></li>
         </ul>
