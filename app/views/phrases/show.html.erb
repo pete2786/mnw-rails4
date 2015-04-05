@@ -5,8 +5,8 @@
   <div id="conditions" class="col-lg-12" style="background: url(<%=@phrase.image%>) no-repeat; background-size: 100% 100%;">
     <div class="row"><p></p></div>
     <div class="content-container">
-      <h1 id="location">Minneapolis</h1>
-      <p id="temp"><span id="value">-40</span>&deg;</p>
+      <h1 id="location">Exampleville</h1>
+      <p id="temp"><span id="value">--</span>&deg;</p>
       <p id="condition"><%=@phrase.condition.capitalize%>... <%=@phrase.phrase%></p>
       <div id="phrase_vote_container">
         <%=render partial: "phrase_votes/phrase_vote", locals: { phrase: @phrase }%>
