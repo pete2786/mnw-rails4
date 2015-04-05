@@ -2,8 +2,13 @@ class PhrasesController < ApplicationController
   before_filter :auth_required, except: [:index, :show]
   load_and_authorize_resource except: [:my]
 
+  has_scope :season
+  has_scope :time_period
+  has_scope :temperature
+  has_scope :condition
+
   def index
-    @phrases = filtered_phrases.paginate(page: params[:page], per_page: 25)
+    @phrases = apply_scopes(filtered_phrases).paginate(page: params[:page], per_page: 25)
   end
 
   def my
@@ -49,7 +54,6 @@ class PhrasesController < ApplicationController
     else
       Phrase.complete.top
     end
-    
   end
   private :filtered_phrases
 end

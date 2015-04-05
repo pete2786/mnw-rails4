@@ -16,18 +16,23 @@ class Phrase < ActiveRecord::Base
 
   mount_uploader :custom_image, ImageUploader
 
-  scope :with_season, ->(s) {where("season = ? or season = 'any'", s)}
-  scope :with_temperature, ->(t) {where("temperature = ? or temperature = ?", t, generic_temp(t))}
-  scope :with_condition, ->(c) {where(condition: c)}
-  scope :with_time_period, ->(t) {where("time_period = ? or time_period = 'any'", t)}
-  scope :any_temperature, ->{where(temperature: 'any')}
-  scope :any_condition, ->{where(condition: 'any')}
-  scope :defaults, ->{ any_temperature.any_condition.with_season('any') }
-  scope :complete, ->{ where(status: 'complete') }
+  scope :with_season,       ->(s) {where("season = ? or season = 'any'", s)}
+  scope :with_temperature,  ->(t) {where("temperature = ? or temperature = ?", t, generic_temp(t))}
+  scope :with_condition,    ->(c) {where(condition: c)}
+  scope :with_time_period,  ->(t) {where("time_period = ? or time_period = 'any'", t)}
+  scope :any_temperature,   ->{where(temperature: 'any')}
+  scope :any_condition,     ->{where(condition: 'any')}
+  scope :defaults,          ->{ any_temperature.any_condition.with_season('any') }
+  scope :complete,          ->{ where(status: 'complete') }
+  
   scope :top, ->(){  joins("LEFT JOIN phrase_votes up ON up.phrase_id = phrases.id and up.vote_type = 'Up'")
                       .joins("LEFT JOIN phrase_votes down ON down.phrase_id = phrases.id  and down.vote_type = 'Down'")
                       .group('phrases.id').order('COUNT(up.id) - COUNT(down.id) DESC')
                     }
+  scope :season,      ->(s){ where(season: s) }
+  scope :temperature, ->(t){ where(temperature: t) }
+  scope :condition,   ->(c){ where(condition: c) }
+  scope :time_period, ->(t){ where(time_period: t) }
 
   before_validation :swap_image, except: :create
   after_create :set_status_image

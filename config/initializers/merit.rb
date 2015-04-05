@@ -2,10 +2,7 @@
 Merit.setup do |config|
   config.checks_on_each_request = true
   config.orm = :active_record
-
-  # Add application observers to get notifications when reputation changes.
-  # config.add_observer 'MyObserverClassName'
-
+  
   config.user_model_name = 'User'
   config.current_user_method = 'current_user'
   config.add_observer 'NewBadgeObserver'
@@ -65,28 +62,28 @@ Merit::Badge.create!(
 Merit::Badge.create!(
   id: 9,
   name: "meteorologist",
-  description: "Sven Sundgaard. You have checked the weather.",
+  description: "Sven Sundgaard: You have checked the weather",
   level: 1
 )
 
 Merit::Badge.create!(
   id: 10,
   name: "meteorologist",
-  description: "Dave Dahl. You have checked the weather 25 times.",
+  description: "Dave Dahl: You have checked the weather 25 times",
   level: 2
 )
 
 Merit::Badge.create!(
   id: 11,
   name: "meteorologist",
-  description: "Belinda Jensen. You have checked the weather 100 times.",
+  description: "Belinda Jensen: You have checked the weather 100 times",
   level: 3
 )
 
 Merit::Badge.create!(
   id: 12,
   name: "meteorologist",
-  description: "Paul Douglas. You have checked the weather 1000 times.",
+  description: "Paul Douglas: You have checked the weather 1000 times",
   level: 4
 )
 
@@ -99,13 +96,13 @@ Merit::Badge.create!(
 Merit::Badge.create!(
   id: 14,
   name: "meteorologist",
-  description: "Al Roker. You have checked the weather 2500 times.",
+  description: "Al Roker: You have checked the weather 2500 times",
   level: 5
 )
 
 Merit::Badge.create!(
   id: 15,
   name: "meteorologist",
-  description: "Mother Nature. You have checked the weather 10000 times.",
+  description: "Mother Nature: You have checked the weather 10000 times",
   level: 6
 )
