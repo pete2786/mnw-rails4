@@ -41,4 +41,9 @@ class User < ActiveRecord::Base
   def send_welcome_email
     UserMailer.welcome_email(self).deliver_now
   end
+
+  def saved?(current_condition)
+    saved_locations.loc_name(current_condition.location).exists? || 
+    saved_locations.geo(current_condition.lat, current_condition.long).exists?
+  end
 end
