@@ -1,15 +1,60 @@
 <% model_class = Phrase %>
-<div class="btn-group">
-  <button type="button" class="btn btn-default">Sort By</button>
-  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-    <span class="caret"></span>
-    <span class="sr-only">Toggle Dropdown</span>
-  </button>
-  <ul class="dropdown-menu" role="menu">
-    <li><a href="?sort=top">Top</a></li>
-    <li><a href="?sort=recent">Recent</a></li>
-  </ul>
-</div>
+<p>
+  <div class="btn-group">
+    <button type="button" class="btn btn-default">Sort By</button>
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+      <span class="caret"></span>
+      <span class="sr-only">Toggle Dropdown</span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+      <li><a href="?sort=top">Top</a></li>
+      <li><a href="?sort=recent">Recent</a></li>
+    </ul>
+  </div>
+  <div class="btn-group">
+    <button type="button" class="btn btn-default">Condition</button>
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+      <span class="caret"></span>
+      <span class="sr-only">Toggle Dropdown</span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+      <% Phrase.conditions.each do |name, value| %>
+      <li><%=link_to name, params.merge(condition: value) %></li>
+      <% end %>
+    </ul>
+  </div>
+  <div class="btn-group">
+    <button type="button" class="btn btn-default">Temperature</button>
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+      <span class="caret"></span>
+      <span class="sr-only">Toggle Dropdown</span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+      <% Phrase.temperatures.each do |name, value| %>
+      <li><%=link_to name, params.merge(temperature: value) %></li>
+      <% end %>
+    </ul>
+  </div>
+  <div class="btn-group">
+    <button type="button" class="btn btn-default">Season</button>
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+      <span class="caret"></span>
+      <span class="sr-only">Toggle Dropdown</span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+      <% Phrase.seasons.each do |name, value| %>
+      <li><%=link_to name, params.merge(season: value) %></li>
+      <% end %>
+    </ul>
+  </div>
+  <%=link_to "Reset", phrases_path, class: "btn btn-default"%>
+</p>
+
+<p>
+  <%=link_to new_phrase_path(params), class: "btn btn-default" do%>
+  <span class="glyphicon glyphicon-plus"></span> Add Phrase
+  <% end%>
+</p>
 <table class="table table-striped">
   <thead>
     <tr>

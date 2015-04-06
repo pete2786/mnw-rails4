@@ -21,7 +21,8 @@ class CurrentConditionsController < ApplicationController
   def save_location
     cc = CurrentCondition.find(params[:current_condition_id])
     SavedLocation.create(saved_location_params(cc))
-    render nothing: true
+
+    redirect_to current_condition_path(cc)
   end
 
   def saved_location_params(current_condition)

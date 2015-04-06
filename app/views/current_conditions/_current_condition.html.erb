@@ -33,9 +33,14 @@
           <span class="hidden-xs hidden-sm">Add Phrase</span>
         <% end %>
         <% if current_user %>
-          <%=link_to(current_condition_save_location_path(@current_condition), class: "btn btn-default btn", method: :post, remote: true) do%>
+          <%=link_to(current_condition_save_location_path(@current_condition), class: "btn btn-default btn", method: :post) do%>
+            <% if SavedLocation.saved?(@current_condition)%>
+            <span class="glyphicon glyphicon-ok"></span>
+            <span class="hidden-xs hidden-sm">Favorited</span>
+            <% else %>
             <span class="glyphicon glyphicon-star"></span>
             <span class="hidden-xs hidden-sm">Favorite</span>
+            <% end %>
           <% end %>
         <% end %>
       </p>
