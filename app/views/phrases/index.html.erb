@@ -51,7 +51,7 @@
 </p>
 
 <p>
-  <%=link_to new_phrase_path(params), class: "btn btn-default" do%>
+  <%=link_to new_phrase_path(phrase: params.except("action", "controller")), class: "btn btn-default" do%>
   <span class="glyphicon glyphicon-plus"></span> Add Phrase
   <% end%>
 </p>
