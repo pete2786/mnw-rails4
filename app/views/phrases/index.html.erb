@@ -64,6 +64,7 @@
       <th><%= model_class.human_attribute_name(:condition) %></th>
       <th><%= model_class.human_attribute_name(:temperature) %></th>
       <th><%= model_class.human_attribute_name(:time_period) %></th>
+      <th>+/-</th>
     </tr>
   </thead>
   <tbody>
@@ -75,6 +76,7 @@
         <td><%= phrase.condition %></td>
         <td><%= phrase.temperature %></td>
         <td><%= phrase.time_period %></td>
+        <td><%= phrase.phrase_vote_rep%></td>
       </tr>
     <% end %>
   </tbody>
