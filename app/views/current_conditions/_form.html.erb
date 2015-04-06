@@ -93,7 +93,7 @@
     alert("Unable to get your location" + d.message);
   }
 
-  var bestPictures = new Bloodhound({
+  var location_bh = new Bloodhound({
     datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
     queryTokenizer: Bloodhound.tokenizers.whitespace,
     remote: {
@@ -105,15 +105,19 @@
           });
       }
     },
-    limit: 10
+    limit: 15
   });
    
-  bestPictures.initialize();
+  location_bh.initialize();
    
-  $('#current_condition_location').typeahead(null, {
-    name: 'best-pictures',
+  $('#current_condition_location').typeahead({
+    hint: false,
+    highlight: true,
+    minLength: 4
+    }, {
+    name: 'location-typeahead',
     displayKey: 'value',
-    source: bestPictures.ttAdapter()
+    source: location_bh.ttAdapter()
   });
 
   $('#current_condition_location').on('typeahead:selected', function(evt, item) {
