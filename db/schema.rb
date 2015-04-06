@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150329160222) do
+ActiveRecord::Schema.define(version: 20150406025853) do
 
   create_table "badges_sashes", force: :cascade do |t|
     t.integer  "badge_id"
@@ -44,6 +44,19 @@ ActiveRecord::Schema.define(version: 20150329160222) do
   end
 
   add_index "current_conditions", ["phrase_id"], name: "index_current_conditions_on_phrase_id"
+
+  create_table "locations", force: :cascade do |t|
+    t.integer  "place_id"
+    t.string   "name"
+    t.decimal  "lat"
+    t.decimal  "long"
+    t.string   "country"
+    t.string   "country2"
+    t.string   "state"
+    t.string   "time_zone"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "merit_actions", force: :cascade do |t|
     t.integer  "user_id"

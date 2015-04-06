@@ -30,6 +30,7 @@ Rails.application.routes.draw do
       resources :current_conditions do
         get :forecast
       end
+      resources :locations
     end
   end
 end

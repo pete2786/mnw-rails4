@@ -90,6 +90,7 @@ GEM
       carrierwave (~> 0.7)
     celluloid (0.16.0)
       timers (~> 4.0.0)
+    chronic (0.10.2)
     coderay (1.1.0)
     coffee-rails (4.1.0)
       coffee-script (>= 2.2.0)
@@ -300,6 +301,8 @@ GEM
       railties (>= 4.0)
       sprockets-rails (>= 2.0, < 4.0)
     weighted_randomizer (0.1.2)
+    whenever (0.9.4)
+      chronic (>= 0.6.3)
     will_paginate (3.0.7)
     xpath (2.0.0)
       nokogiri (~> 1.3)
@@ -346,4 +349,5 @@ DEPENDENCIES
   uglifier (>= 1.3.0)
   web-console (~> 2.0)
   weighted_randomizer
+  whenever
   will_paginate
