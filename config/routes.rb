@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get 'latest' => 'home#latest'
   get 'reputation' => 'home#reputation'
   get 'tips' => 'home#tips'
+  get 'promo' => 'home#promo'
 
   resources :stock_images
   resources :phrases do

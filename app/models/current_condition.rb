@@ -7,6 +7,7 @@ class CurrentCondition < ActiveRecord::Base
   belongs_to :user
 
   before_create :assign_phrase
+  after_create :add_points
 
   delegate :name, :temp_farenheit, :icon, :description, :code, :humidity, :lat, :long, :wind, :to_hash,
             to: :condition, allow_nil: true, prefix: true
@@ -43,6 +44,10 @@ class CurrentCondition < ActiveRecord::Base
 
   def assign_phrase
     self.phrase = determine_phrase
+  end
+
+  def add_points
+    user.add_points(1) if user
   end
 
   def determine_phrase

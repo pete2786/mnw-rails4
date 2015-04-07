@@ -18,10 +18,6 @@ module Merit
 
       score 1, on: 'phrase_votes#create', to: :user
       score 5, on: 'phrase_votes#create', to: :phrase_user
-
-      score 1, on: 'current_conditions#create', to: :user do |cc|
-        cc.user
-      end
     end
   end
 end
