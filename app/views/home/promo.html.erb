@@ -1,8 +1,8 @@
 <% user_count = User.count %>
 <h1>Duluth Pack Promo!</h1>
 <% if user_count < 100 %>
-<p>Weather Clever is nothing without it's community. Help us build our community and be rewarded. If you <%link_to "sign in", '#'%> with Facebook, then check the weather, you are eligible to win one of two $25 Duluth Pack Gift Cards! You have to be one of the first 100 members so sign in today!</p>
-<h2><%=number_with_precision((user_count/100) * 100, precision: 0)%>% to our goal!</h2>
+<p>Weather Clever is nothing without it's community. Help us build our community and be rewarded. If you <%=link_to_or_siginin "sign in", root_path%> with Facebook, then check the weather, you are eligible to win one of two $25 Duluth Pack Gift Cards! You have to be one of the first 100 members so sign in today!</p>
+<h2><%=number_with_precision((user_count.to_f/100) * 100, precision: 0)%>% to our goal!</h2>
 <% else %>
 <p>
   We have achieved our goal of 100 users! Thanks for helping us out. Look for more community rewards in the future!
