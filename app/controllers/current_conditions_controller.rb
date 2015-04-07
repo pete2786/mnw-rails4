@@ -1,7 +1,10 @@
 require 'condition'
+require 'ostruct'
 
 class CurrentConditionsController < ApplicationController
   before_filter :auth_required, only: [:save_location]
+  before_filter :limit_creates, only: [:create]
+
   def create
     @current_condition = CurrentCondition.with(params)
     @current_condition.user = current_user
@@ -23,6 +26,13 @@ class CurrentConditionsController < ApplicationController
     SavedLocation.create(saved_location_params(cc))
 
     redirect_to current_condition_path(cc)
+  end
+
+  def limit_creates
+    return unless current_user
+    location = OpenStruct.new(lat: params[:lat], long: params[:long])
+    cc = CurrentCondition.by_user(current_user).in_last(5.minutes).at(location).last
+    redirect_to current_condition_path(cc) if cc
   end
 
   def saved_location_params(current_condition)
