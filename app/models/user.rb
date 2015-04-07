@@ -11,6 +11,11 @@ class User < ActiveRecord::Base
                       .limit(n)
                     }
 
+  scope :top_contributers, ->(n){ joins('LEFT JOIN phrases ON phrases.user_id = users.id ')
+                      .group('users.id').order('count(*) DESC')
+                      .limit(n)
+                    }
+
   after_update :process_badges
   after_create :send_welcome_email
 

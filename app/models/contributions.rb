@@ -6,4 +6,9 @@ class Contributions
   def top_users
     User.top(10)
   end
+
+  def top_contributers
+    User.top_contributers(10)
+  end
+
 end

@@ -23,8 +23,9 @@
     </table>
     <p><%=link_to "Browse all phrases", phrases_path%>
   </div>
+
   <div class="col-lg-6">
-    <h2>Top Contributers</h2>
+    <h2>Point Leaders</h2>
     <table class="table table-striped table-hover table-condensed">
       <thead>
         <th>User</th>
@@ -35,6 +36,26 @@
         <tr>
           <td><%=image_tag u.image, height: 25, width: 25%> <%=u.name%></td>
           <td><%=u.points%></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-6">
+    <h2>Top Contributers</h2>
+    <table class="table table-striped table-hover table-condensed">
+      <thead>
+        <th>User</th>
+        <th>Phrase Submissions</th>
+      </thead>
+      <tbody>
+        <% @contributions.top_contributers.each do |u| %>
+        <tr>
+          <td><%=image_tag u.image, height: 25, width: 25%> <%=u.name%></td>
+          <td><%=u.phrases.count%></td>
         </tr>
         <% end %>
       </tbody>
