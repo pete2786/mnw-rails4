@@ -27,7 +27,7 @@ class Phrase < ActiveRecord::Base
   
   scope :top, ->(){  joins("LEFT JOIN phrase_votes up ON up.phrase_id = phrases.id and up.vote_type = 'Up'")
                       .joins("LEFT JOIN phrase_votes down ON down.phrase_id = phrases.id  and down.vote_type = 'Down'")
-                      .group('phrases.id').order('COUNT(up.id) - COUNT(down.id) DESC')
+                      .group('phrases.id').order('COUNT(distinct up.id) - COUNT(distinct down.id) DESC')
                     }
   scope :season,      ->(s){ where(season: s) }
   scope :temperature, ->(t){ where(temperature: t) }
