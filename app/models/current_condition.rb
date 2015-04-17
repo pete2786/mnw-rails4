@@ -2,6 +2,8 @@ require 'condition'
 require 'open_weather'
 
 class CurrentCondition < ActiveRecord::Base
+  include Combable
+  
   attr_accessor :condition
   belongs_to :phrase
   belongs_to :user
@@ -20,6 +22,8 @@ class CurrentCondition < ActiveRecord::Base
   scope :by_user, ->(u){ where(user: u) }
   scope :in_last, ->(t){ where("created_at > ? ", t.ago)}
   scope :at, ->(l){ where( lat: l.lat, long: l.long) }
+
+  combable :location, :temperature_range, :description, :wind
 
   def self.with(params)
     cc = new( condition: Condition.with(params.with_indifferent_access) )

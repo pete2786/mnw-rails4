@@ -12,11 +12,16 @@ class MustacheComber
   end
 
   def comb(attribute)
-    return attribute unless lookup_object.respond_to?(attribute)
+    return attribute unless can_comb?(lookup_object, attribute.to_sym)
 
     lookup_object.public_send(attribute).try(:to_s)
   end
   private :comb
+
+  def can_comb?(lookup_object, attribute)
+    lookup_object.respond_to?(:combable?) && lookup_object.combable?(attribute) &&
+    lookup_object.respond_to?(attribute)
+  end
 
   def mustache_regex
     /\{\{(.*?)\}\}/
