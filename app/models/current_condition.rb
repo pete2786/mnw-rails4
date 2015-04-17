@@ -11,8 +11,9 @@ class CurrentCondition < ActiveRecord::Base
 
   delegate :name, :temp_farenheit, :icon, :description, :code, :humidity, :lat, :long, :wind, :to_hash,
             to: :condition, allow_nil: true, prefix: true
-
   delegate :user, :phrase, :image, to: :phrase, prefix: true
+  delegate :temperature_range, :time_period, :phrase_params, to: :condition_classifier, allow_nil: true
+
   validates :location, :temperature, :icon, :description, :code, :humidity, presence: true
 
   scope :recent, ->{ order('id desc').limit(5) }
@@ -66,7 +67,7 @@ class CurrentCondition < ActiveRecord::Base
     @forecast ||= (raw_forecast ? Hashie::Mash.new(eval(raw_forecast)) : nil)
   end
 
-  def phrase_params
-    ConditionClassifier.new(self).phrase_params
+  def condition_classifier
+    @condition_classifier ||= ConditionClassifier.new(self)
   end
 end

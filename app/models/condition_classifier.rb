@@ -2,6 +2,7 @@ require 'season'
 
 class ConditionClassifier
   include Season
+
   attr_accessor :conditions
   delegate :code, :wind_speed, :temperature, :humidity, to: :conditions, allow_nil: true
 

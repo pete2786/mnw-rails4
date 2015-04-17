@@ -3,7 +3,7 @@ class CurrentConditionDecorator < Draper::Decorator
   delegate_all
 
   def text
-    "#{description.capitalize}...#{phrase_phrase}"
+    "#{description.capitalize}...#{combed_phrase}"
   end
 
   def image
@@ -12,5 +12,9 @@ class CurrentConditionDecorator < Draper::Decorator
 
   def url
     Rails.application.routes.url_helpers.current_condition_url(id)
+  end
+
+  def combed_phrase
+    MustacheComber.new(phrase_phrase, object).combed_string
   end
 end
