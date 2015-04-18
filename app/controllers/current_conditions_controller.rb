@@ -31,7 +31,7 @@ class CurrentConditionsController < ApplicationController
   def limit_creates
     return unless current_user
     location = OpenStruct.new(lat: params[:lat], long: params[:long])
-    cc = CurrentCondition.by_user(current_user).in_last(5.minutes).at(location).last
+    cc = CurrentCondition.by_user(current_user).in_last(10.seconds).at(location).last
     redirect_to current_condition_path(cc) if cc
   end
 
