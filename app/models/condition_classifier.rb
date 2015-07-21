@@ -72,11 +72,9 @@ class ConditionClassifier
       'rain'
     elsif code.eql?('905') || code.eql?('804')
       'overcast'
-    elsif code.eql?('802') || code.eql?('803')
+    elsif code.eql?('803')
       'cloudy'
-    elsif code.eql?('801') || code.eql?('802')
-      'partially_cloudy'
-    elsif code.eql?('800') 
+    elsif code.eql?('800') || code.eql?('801') || code.eql?('802')
       'clear'
     else
       nil
