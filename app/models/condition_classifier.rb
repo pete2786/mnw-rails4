@@ -52,7 +52,7 @@ class ConditionClassifier
 
   # http://bugs.openweathermap.org/projects/api/wiki/Weather_Condition_Codes
   def process_condition
-    return 'humid' if humidity > HUMIDITY_PERCENTAGE && conditions != 'rain' && temperature > 75
+    return 'humid' if humidity > HUMIDITY_PERCENTAGE && !rainy? && temperature > 75
     # Extreme weather
     if ['901', '902', '903'].include?(code)
       'disaster'
@@ -79,6 +79,10 @@ class ConditionClassifier
     else
       nil
     end
+  end
+
+  def rainy?
+    code.starts_with?('5') || code.eql?('701')
   end
 
   def process_temperature

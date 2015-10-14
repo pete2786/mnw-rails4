@@ -6,13 +6,13 @@ class Condition < SimpleDelegator
       if !location.to_s.index(/^\d{5}$/).nil?
         geocode_by_zip(location)
       else
-        condition = try_with_timeout{ OpenWeather::Current.city(location) }
+        condition = try_with_timeout{ OpenWeather::Current.city(location, APPID: Rails.application.secrets.owm_appid) }
         condition ? new(Hashie::Mash.new(condition)) : nil
       end
     end
 
     def geocode(lat, long)
-      condition = try_with_timeout{ OpenWeather::Current.geocode(lat, long) }
+      condition = try_with_timeout{ OpenWeather::Current.geocode(lat, long, APPID: Rails.application.secrets.owm_appid) }
       condition ? new(Hashie::Mash.new(condition)) : nil
     end
 
