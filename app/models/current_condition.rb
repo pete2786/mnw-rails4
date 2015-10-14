@@ -64,7 +64,7 @@ class CurrentCondition < ActiveRecord::Base
   def fetch_forecast
     return unless forecast_pending
 
-    update_attributes(raw_forecast: OpenWeather::ForecastDaily.geocode(lat, long, cnt: 6), forecast_pending: false)
+    update_attributes(raw_forecast: OpenWeather::ForecastDaily.geocode(lat, long, cnt: 6, APPID: Rails.application.secrets.owm_appid), forecast_pending: false)
   end
 
   def forecast
