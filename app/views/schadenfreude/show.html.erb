@@ -1,0 +1,44 @@
+<div class="row">
+<h1>
+  Weather Schadenfreude
+  <i class="wi wi-thunderstorm"></i>
+  <small>Taking pleasure at the misfortune of your climate.</small>
+</h1>
+<% if @schadenfreude.comment %>
+  <blockquote>
+    <p><%=@schadenfreude.comment%></p>
+    <footer>From <%=@schadenfreude.user.name%></footer>
+  </blockquote>
+<% end %>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <% @current_condition = @schadenfreude.my_current_condition %>
+    <%= render partial: "current_conditions/current_condition", locals: {forecast: false}%>
+  </div>
+  <div class="col-md-6">
+    <% @current_condition = @schadenfreude.their_current_condition %>
+    <%= render partial: "current_conditions/current_condition", locals: {forecast: false, show_form: false}%>
+  </div>
+
+  <p>
+</div>
+
+<% if can? :update, @schadenfreude %>
+<div class="row">
+<hr />
+<h3>Want to add a comment to rub it in?</h3>
+
+<%= simple_form_for @schadenfreude do |f| %>
+  <%=f.input :comment, hint: "Comment will appear above the weather information"%>
+  <%=f.submit%>
+<% end %>
+<% end %>
+</div>
+
+<hr />
+<div class="row">
+<h1> Create your own!</h1>
+<%=render partial: "form" %>
+</div>

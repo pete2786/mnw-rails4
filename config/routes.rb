@@ -23,6 +23,9 @@ Rails.application.routes.draw do
     resources :badges, only: [:show]
   end
   resources :contributions, only: [:index]
+
+  resources :schadenfreude
+  
   get "/auth/:provider/callback" => "sessions#create"
   get "/auth/failure" => "home#index"
 

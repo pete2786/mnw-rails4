@@ -1,0 +1,71 @@
+<%=simple_form_for @new_schadenfreude, url: schadenfreude_index_path, method: :post do |f|%>
+<div class="row">
+  <div class="col-md-5">
+    <h2>Your location</h2>
+      <%=f.simple_fields_for :my_location, @new_schadenfreude.my_current_condition do |pf|%>
+        <%=pf.input :location, label: false, placeholder: "Enter your location (City, ST)", input_html: { autocomplete: 'off', class: "location_input my_location" } %>
+        <%=hidden_field_tag "my_location[lat]", "", class: "my_location"%>
+        <%=hidden_field_tag "my_location[long]", "", class: "my_location"%>
+        <%=hidden_field_tag "my_location[location_id]", "", class: "my_location"%>
+      <% end %>
+  </div>
+
+  <div class="col-md-5">
+    <h2>Their location</h2>
+      <%=f.simple_fields_for :their_location, @new_schadenfreude.their_current_condition do |pf|%>
+        <%=pf.input :location, label: false, placeholder: "Enter your location (City, ST)", input_html: { autocomplete: 'off', class: "location_input their_location" } %>
+        <%=hidden_field_tag "their_location[lat]", "", class: "their_location"%>
+        <%=hidden_field_tag "their_location[long]", "", class: "their_location"%>
+        <%=hidden_field_tag "their_location[location_id]", "", class: "their_location"%>
+      <% end %>
+  </div>
+
+  <div class="col-md-2">
+    <h2>&nbsp;</h2>
+    <div class="btn-group" role="group">
+      <%=f.button :button do%>
+        <span class="glyphicon glyphicon-play"></span> 
+        <span class="hidden-xs hidden-sm">Schadenfreude!</span>
+        <% end %>
+    </div>
+  </div>
+</div>
+<%end%>
+
+<hr />
+
+<script>
+  var location_bh = new Bloodhound({
+    datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+    queryTokenizer: Bloodhound.tokenizers.whitespace,
+    remote: {
+      url: '/api/v1/locations?name_like=%QUERY',
+      filter: function (locations) {
+          // Map the remote source JSON array to a JavaScript object array
+          return $.map(locations.result, function (location) {
+              return location.location;
+          });
+      }
+    },
+    limit: 15
+  });
+   
+  location_bh.initialize();
+   
+  $('.location_input').typeahead({
+    hint: false,
+    highlight: true,
+    minLength: 4
+    }, {
+    name: 'location-typeahead',
+    displayKey: 'value',
+    source: location_bh.ttAdapter()
+  });
+
+  $('.location_input').on('typeahead:selected', function(e, item) {
+    var parent_class = e.target.classList.contains("my_location") ? "my_location" : "their_location";
+    $("#" + parent_class +"_lat").val(item.lat);
+    $("#" + parent_class +"_long").val(item.long);
+    $("#" + parent_class +"_location_id").val(item.id);
+  })
+</script>
