@@ -1,28 +1,32 @@
+<% schadenfreude_header(@schadenfreude)%>
+
 <div class="row">
-<h1>
-  Weather Schadenfreude
-  <i class="wi wi-thunderstorm"></i>
-  <small>Taking pleasure at the misfortune of your climate.</small>
-</h1>
-<% if @schadenfreude.comment %>
-  <blockquote>
-    <p><%=@schadenfreude.comment%></p>
-    <footer>From <%=@schadenfreude.user.name%></footer>
-  </blockquote>
-<% end %>
+  <h1>
+    Weather Schadenfreude
+    <i class="wi wi-thunderstorm"></i>
+    <small>Taking pleasure at the misfortune of your climate.</small>
+  </h1>
+  <% if @schadenfreude.comment %>
+    <blockquote>
+      <p><%=@schadenfreude.comment%></p>
+      <footer>From <%=@schadenfreude.user.name%></footer>
+    </blockquote>
+  <% end %>
 </div>
 
 <div class="row">
   <div class="col-md-6">
     <% @current_condition = @schadenfreude.my_current_condition %>
-    <%= render partial: "current_conditions/current_condition", locals: {forecast: false}%>
+    <%= render partial: "current_conditions/current_condition", locals: {forecast: false, show_form: false, social: false}%>
   </div>
   <div class="col-md-6">
     <% @current_condition = @schadenfreude.their_current_condition %>
-    <%= render partial: "current_conditions/current_condition", locals: {forecast: false, show_form: false}%>
+    <%= render partial: "current_conditions/current_condition", locals: {forecast: false, show_form: false, social: false}%>
   </div>
-
-  <p>
+  <p>&nbsp;</p>
+  <div style="text-align: center;">
+    <div class="fb-like" data-href="<%=schadenfreude_path(@schadenfreude)%>" data-layout="button_count" data-action="recommend" data-show-faces="true" data-share="true"></div>
+  </div>
 </div>
 
 <% if can? :update, @schadenfreude %>

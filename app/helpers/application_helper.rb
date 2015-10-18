@@ -39,4 +39,15 @@ module ApplicationHelper
     content_for(:thumb) { current.phrase.image.thumb.url }
     content_for(:og_url) { current_condition_url(current) }
   end
+
+  def schadenfreude_header(schadenfreude)
+    comment = schadenfreude.comment || "Taking pleasure at the misfortune of your climate."
+    comment = "#{schadenfreude.user.name} says: \"#{comment}\"" if schadenfreude.user
+    comment += "." unless comment[-1, 1] == "."
+    content_for(:title) { "Weather Schadenfreude from #{schadenfreude.my_current_condition.location}: #{schadenfreude.my_current_condition.temperature}&deg;".html_safe }
+    content_for(:description) { "#{comment} #{schadenfreude.their_current_condition.text} Find more humor in weather at #{app_name}." }
+    content_for(:og_image) { schadenfreude.their_current_condition.phrase.image.url }
+    content_for(:thumb) { schadenfreude.their_current_condition.phrase.image.thumb.url }
+    content_for(:og_url) { schadenfreude_url(schadenfreude) }
+  end
 end

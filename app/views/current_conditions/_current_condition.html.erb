@@ -1,5 +1,6 @@
 <% forecast = true unless defined?(forecast)%>
-<% show_form = true unless defined?(forecast)%>
+<% defined?(show_form) or show_form = true %>
+<% defined?(social) or social = true %>
 
 <div class="row">
   <div style="display: none;">
@@ -8,9 +9,7 @@
   <div id="conditions" class="col-lg-12" style="background: url(<%=@current_condition.phrase.image%>) no-repeat; background-size: 100% 100%;">
     <div class="row"><p></p></div>
 
-    <% if show_form %>
-    <%=render partial: "current_conditions/form"%>
-    <% end %>
+    <%=render partial: "current_conditions/form" if show_form%>
     
     <div class="content-container">
       <h1 id="location"><%=link_to @current_condition.location, current_condition_path(@current_condition)%></h1>
@@ -49,7 +48,11 @@
       </p>
       <p><small>As of: <%=l @current_condition.created_at%>, Submitted by: <%=link_to_or_siginin(@current_condition.phrase.user_name, user_path(@current_condition.phrase_user))%> (<%=@current_condition.phrase_user.phrase_rep_name%>)
       </small></p>
+
+      <% if social %>
       <div class="fb-like" data-href="<%=current_condition_path(@current_condition)%>" data-layout="button_count" data-action="recommend" data-show-faces="true" data-share="true"></div>
+      <% end %>
+
     </div>
 
     <div class="row"><p></p></div>
