@@ -73,6 +73,9 @@ module Merit
       grant_on 'phrase_votes#create', badge: 'revered', to: :phrase_user do |vote|
         vote.phrase_user.phrase_vote_rep > 1000
       end
+
+      # Schadenfreude
+      grant_on 'schadenfreude#create', badge: 'schadenfreude'
     end
   end
 end

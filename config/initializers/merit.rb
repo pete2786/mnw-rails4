@@ -106,3 +106,9 @@ Merit::Badge.create!(
   description: "Mother Nature: You have checked the weather 10000 times",
   level: 6
 )
+
+Merit::Badge.create!(
+  id: 16,
+  name: "schadenfreude",
+  description: "Achtung! You have enjoyed the misfortune of another"
+)
